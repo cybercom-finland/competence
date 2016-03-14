@@ -1,6 +1,6 @@
 package com.cybercom.confluence.competence.api;
 
-public interface MyPluginComponent
+public interface CompetenceComponent
 {
     String getName();
 }

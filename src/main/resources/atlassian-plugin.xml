@@ -1,24 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
-    <plugin-info>
-        <description>${project.description}</description>
-        <version>${project.version}</version>
-        <vendor name="${project.organization.name}" url="${project.organization.url}" />
-        <param name="plugin-icon">images/pluginIcon.png</param>
-        <param name="plugin-logo">images/pluginLogo.png</param>
-    </plugin-info>
-
-    <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="confluence-competence-plugin"/>
-    
-    <!-- add our web resources -->
-    <web-resource key="confluence-competence-plugin-resources" name="confluence-competence-plugin Web Resources">
-        <dependency>com.atlassian.auiplugin:ajs</dependency>
-        
-        <resource type="download" name="confluence-competence-plugin.css" location="/css/confluence-competence-plugin.css"/>
-        <resource type="download" name="confluence-competence-plugin.js" location="/js/confluence-competence-plugin.js"/>
-        <resource type="download" name="images/" location="/images"/>
-
-        <context>confluence-competence-plugin</context>
-    </web-resource>
-    
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="confluence-competence-plugin"/>
+  <!-- add our web resources -->
+  <web-resource key="confluence-competence-plugin-resources" name="confluence-competence-plugin Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="confluence-competence-plugin.css" location="/css/confluence-competence-plugin.css"/>
+    <resource type="download" name="confluence-competence-plugin.js" location="/js/confluence-competence-plugin.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>confluence-competence-plugin</context>
+  </web-resource>
+  <!-- Responds in: http://host:port/context/rest/competence/1.0 -->
+  <rest name="Competence Rest Resource" i18n-name-key="competence-rest-resource.name" key="competence-rest-resource" path="/competence" version="1.0">
+    <description key="competence-rest-resource.description">Provides the competences from the REST endpoint.</description>
+  </rest>
 </atlassian-plugin>
