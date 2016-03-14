@@ -22,4 +22,9 @@
   <rest name="Competence Rest Resource" i18n-name-key="competence-rest-resource.name" key="competence-rest-resource" path="/competence" version="1.0">
     <description key="competence-rest-resource.description">Provides the competences from the REST endpoint.</description>
   </rest>
+  <web-item name="MyCompetences" i18n-name-key="my-competences.name" key="my-competences" section="system.profile" weight="1000">
+    <description key="my-competences.description">The MyCompetences Plugin</description>
+    <label key="my-competences.label"></label>
+    <link linkId="my-competences-link">/manageCompetences</link>
+  </web-item>
 </atlassian-plugin>
