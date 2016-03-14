@@ -18,6 +18,12 @@
     <description>This is the com.cybercom.confluence.competence:confluence-competence-plugin plugin for Atlassian Confluence.</description>
     <packaging>atlassian-plugin</packaging>
 
+    <licenses>
+        <license>
+            <name>GNU Affero General Public License (AGPL) version 3.0</name>
+            <url>http://www.gnu.org/licenses/agpl-3.0.txt</url>
+        </license>
+    </licenses>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
