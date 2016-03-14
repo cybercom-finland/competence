@@ -27,9 +27,9 @@ public class CompetenceRestResourceTest {
     public void messageIsValid() {
         CompetenceRestResource resource = new CompetenceRestResource();
 
-        Response response = resource.getCompetences();
+        Response response = resource.getPeople();
         final CompetenceRestResourceModel message = (CompetenceRestResourceModel) response.getEntity();
 
-        assertEquals("wrong message","Competences",message.getMessage());
+        assertEquals("wrong message","People",message.getMessage());
     }
 }
