@@ -1,6 +1,16 @@
-To avoid future confusion, we recommend that you include a license with your plugin.
-This file is simply a reminder.
+    A Confluence plug-in for managing the competences of people
+    in LinkedIn style with tag clouds.
+    Copyright (C) 2016  Cybercom Finland Oy
 
-For a template license you can have a look at: http://www.opensource.org/licenses/
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
 
-Atlassian releases most of its modules under the Apache2 license: http://opensource.org/licenses/Apache-2.0
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
