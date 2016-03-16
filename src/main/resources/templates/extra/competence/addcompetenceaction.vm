@@ -1,1 +1,22 @@
-TODO
+<html>
+  <head>
+    <title>$generalUtil.htmlEncode($pageTitle)</title>
+    <meta name="decorator" content="atl.userprofile" />
+    <meta name="tab" content="my-competences"/>
+  </head>
+  #applyDecorator("root")
+    #decoratorParam("context" "profile")
+    #decoratorParam("mode" "my-competences")
+    #decoratorParam ("selectedTab" "my-competences")
+    #decoratorParam("helper" $action.helper)
+    <body>
+      <h1>Manage Your Competences for the Competence Tag Cloud!</h1>
+      <p>
+        This page will have list of your competences with associated endorsements.
+        Also, it will have suggested competences to accept/add.
+        There is the list of all the teams you belong to.
+        It will show your personal tag cloud.
+      </p>
+    </body>
+  #end
+</html>

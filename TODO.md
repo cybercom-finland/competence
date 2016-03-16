@@ -25,6 +25,7 @@ Note:
 
 * One person can belong to an arbitrary number of teams.
 * No access control, anyone can edit teams.
+* Competences are always Wikipedia article names, download the exhaustive list from here: http://dumps.wikimedia.org/enwiki/latest/enwiki-latest-all-titles-in-ns0.gz
 
 See references:
 
