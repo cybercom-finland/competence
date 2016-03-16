@@ -3,6 +3,9 @@
     <title>$generalUtil.htmlEncode($pageTitle)</title>
     <meta name="decorator" content="atl.userprofile" />
     <meta name="tab" content="my-competences"/>
+    <base href="http://polygit.org/components/">
+    <link href="polymer/polymer.html" rel="import">
+    <link href="polymer/polymer.html" rel="import">
   </head>
   #applyDecorator("root")
     #decoratorParam("context" "profile")
