@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}"
+<atlassian-plugin key="com.cybercom.confluence.competence.confluence-competence-plugin" name="competence"
 	plugins-version="2">
 	<plugin-info>
 		<description>${project.description}</description>
@@ -19,6 +19,8 @@
 			location="/css/confluence-competence-plugin.css" />
 		<resource type="download" name="confluence-competence-plugin.js"
 			location="/js/confluence-competence-plugin.js" />
+		<resource type="download" name="wordcloud2.js"
+			location="/js/node_modules/wordcloud/src/wordcloud2.js" />
 		<resource type="download" name="images/" location="/images" />
 		<context>confluence-competence-plugin</context>
 	</web-resource>
