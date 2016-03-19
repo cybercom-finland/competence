@@ -1,5 +1,6 @@
 package com.cybercom.confluence.competence.impl;
 
+import com.atlassian.bandana.BandanaManager;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.cybercom.confluence.competence.api.CompetenceComponent;
 
@@ -9,8 +10,14 @@ import javax.inject.Named;
 @Named ("competence")
 public class CompetenceComponentImpl implements CompetenceComponent
 {
+    private BandanaManager bandanaManager;
+
     public CompetenceComponentImpl()
     {
+    }
+    
+    public void setBandanaManager(BandanaManager bandanaManager) {
+        this.bandanaManager = bandanaManager;
     }
 
     public String getName()

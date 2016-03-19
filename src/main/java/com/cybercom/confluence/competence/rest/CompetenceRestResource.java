@@ -2,6 +2,8 @@ package com.cybercom.confluence.competence.rest;
 
 import com.atlassian.bandana.BandanaManager;
 import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
+import com.atlassian.spring.container.ContainerManager;
+import com.cybercom.confluence.competence.api.CompetenceComponent;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -18,6 +20,8 @@ import java.util.Set;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Returns all the competences and teams for the purposes of drawing the tag cloud.
@@ -39,17 +43,19 @@ import javax.ws.rs.core.Response;
  * - Add/remove person from a team
  */
 @Path("/")
-@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_JSON})
 public class CompetenceRestResource {
-    private BandanaManager bandanaManager;
+    @Autowired
+    private CompetenceComponent competenceComponent;
     private static final String AUTOCOMPLETE = "autocomplete";
-    private static final long MAX_RESULTS = 10;
+    private static final int MAX_RESULTS = 10;
     // TODO: Put in a cloud Redis here.
     private static final String redisHost = "localhost";
     private static final JedisPool pool = new JedisPool(new JedisPoolConfig(), redisHost);
 
-    public CompetenceRestResource() {
+    public CompetenceRestResource(CompetenceComponent competenceComponent) {
+        this.competenceComponent = competenceComponent;
         new Thread() {
             public void run() {
                 System.out.println("READING ALL ARTICLE TITLES IN FROM WIKIPEDIA...");
@@ -71,33 +77,21 @@ public class CompetenceRestResource {
         }.start();
     }
     
-    public void setBandanaManager(BandanaManager bandanaManager) {
-        this.bandanaManager = bandanaManager;
-    }
-    
     @GET
     @AnonymousAllowed
     @Path("autocomplete")
     public Response getAutocomplete(@QueryParam("prefix") String prefix)
     {
         Jedis jedis = pool.getResource();
-        Long start = jedis.zrank(AUTOCOMPLETE, prefix);
-        if (start == null) {
-            // No completions found.
-            jedis.close();
-            return Response.noContent().build();
+        String searchParam = "[" + prefix;
+        if (prefix.equals("")) {
+            searchParam = "-";
         }
-        List<String> results = new ArrayList<String>();
-        Set<String> range = jedis.zrange(prefix, start, start + MAX_RESULTS - 1);
-        for(String entry: range) {
-            if(!entry.startsWith(prefix)) {
-                break;
-            }
-            results.add(entry);
-        }
-        System.out.println("BandanaManager: " + bandanaManager);
+        Set<String> range = jedis.zrangeByLex(AUTOCOMPLETE, searchParam, "+", 0, MAX_RESULTS);
+        System.out.println("Found: " + range.toString());
+        System.out.println("CompetenceComponent: " + competenceComponent);
         jedis.close();
-        return Response.ok(new CompetenceRestStringListModel(results)).build();
+        return Response.ok(new CompetenceRestStringListModel(new ArrayList<String>(range))).build();
     }
 
     @GET
