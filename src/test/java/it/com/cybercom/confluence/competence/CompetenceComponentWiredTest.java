@@ -23,6 +23,6 @@ public class CompetenceComponentWiredTest
     @Test
     public void testMyName()
     {
-        assertEquals("names do not match!", "myComponent:" + applicationProperties.getDisplayName(),competenceComponent.getName());
+        assertEquals("names do not match!", "competenceComponent", competenceComponent.getName());
     }
 }
