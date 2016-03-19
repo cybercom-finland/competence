@@ -21,14 +21,14 @@
       <script>
         function makeWordCloud() {
           if (window.WordCloud) {
-            WordCloud(document.getElementById('tagCloud'), { list: [['Testing', 1], ['the', 2], ['drawing', 3]] } );
+            WordCloud(document.getElementById('tagCloud'), { list: [['Testing', 10], ['the', 20], ['drawing', 30]] } );
           } else {
             setTimeout(makeWordCloud, 500);
           }
         };
         setTimeout(makeWordCloud, 500)
       </script>
-      <div id="tagCloud"></div>
+      <div id="tagCloud" style="width: 800px; height: 500px;"></div>
     </body>
   #end
 </html>
