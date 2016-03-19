@@ -21,14 +21,34 @@
       <script>
         function makeWordCloud() {
           if (window.WordCloud) {
-            WordCloud(document.getElementById('tagCloud'), { list: [['Testing', 10], ['the', 20], ['drawing', 30]] } );
+            var wordlist = ['JavaScript', 'TypeScript', 'Linux', 'HTML5', 'ikebana', 'smoke signals',
+              'Spring', 'Java', 'Confluence', 'Lisp'];
+            var list = wordlist.map(function(item) {
+              return [item, Math.floor(1 + Math.random() * 20)];
+            });
+            var configuration = {
+              fontFamily: 'Times, serif',
+              hover: function(item, dimension, event) {
+                if (item) {
+                  console.log('Item hovered: ' + item);
+                }
+              },
+              click: function(item, dimension, event) {
+                console.log('Item clicked: ' + item);
+              },
+              weightFactor: function(size) {
+                return Math.sqrt(size / 5) * 50;
+              },
+              list: list
+            };
+            WordCloud(document.getElementById('tagCloud'), configuration );
           } else {
             setTimeout(makeWordCloud, 500);
           }
         };
         setTimeout(makeWordCloud, 500)
       </script>
-      <div id="tagCloud" style="width: 800px; height: 500px;"></div>
+      <canvas id="tagCloud" width="800" height="500" style="width: 800px; height: 500px;"></canvas>
     </body>
   #end
 </html>
