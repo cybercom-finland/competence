@@ -2,6 +2,7 @@ package com.cybercom.confluence.competence.dao;
 
 import java.util.List;
 
+import net.java.ao.Preload;
 import net.java.ao.RawEntity;
 import net.java.ao.schema.NotNull;
 import net.java.ao.schema.PrimaryKey;
@@ -10,6 +11,7 @@ import net.java.ao.schema.Table;
 /**
  * An active object describing a competence tag and related level.
  */
+@Preload
 @Table("COMPETENCE_COMPETENCE")
 public interface Competence extends RawEntity<String> {
     /**

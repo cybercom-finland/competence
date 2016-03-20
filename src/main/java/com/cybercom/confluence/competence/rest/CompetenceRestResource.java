@@ -1,6 +1,5 @@
 package com.cybercom.confluence.competence.rest;
 
-import com.atlassian.activeobjects.tx.Transactional;
 import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
 import com.cybercom.confluence.competence.rest.model.CompetenceRestPeopleModel;
 import com.cybercom.confluence.competence.rest.model.CompetenceRestStringListModel;
@@ -104,7 +103,6 @@ public class CompetenceRestResource {
     @GET
     @AnonymousAllowed
     @Path("people/{id}")
-    @Transactional
     public Response getPerson(@PathParam("id") String id)
     {
         return Response.ok(competenceComponent.getPerson(id)).build();
@@ -113,7 +111,6 @@ public class CompetenceRestResource {
     @GET
     @AnonymousAllowed
     @Path("people")
-    @Transactional
     public Response getPeople()
     {
         return Response.ok(new CompetenceRestPeopleModel(competenceComponent.getAllPeople())).build();
@@ -122,7 +119,6 @@ public class CompetenceRestResource {
     @PUT
     @AnonymousAllowed
     @Path("people/{id}")
-    @Transactional
     public Response addPerson(@PathParam("id") String id, @QueryParam("body") String body)
     {
         return Response.ok(new CompetenceRestPeopleModel(competenceComponent.getAllPeople())).build();
@@ -131,7 +127,6 @@ public class CompetenceRestResource {
     @GET
     @AnonymousAllowed
     @Path("teams")
-    @Transactional
     public Response getTeams()
     {
        return Response.ok(new CompetenceRestStringModel("Teams")).build();

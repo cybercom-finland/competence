@@ -2,11 +2,13 @@ package com.cybercom.confluence.competence.dao;
 
 import java.util.List;
 
+import net.java.ao.Preload;
 import net.java.ao.RawEntity;
 import net.java.ao.schema.NotNull;
 import net.java.ao.schema.PrimaryKey;
 import net.java.ao.schema.Table;
 
+@Preload
 @Table("COMPETENCE_PERSON")
 public interface Person extends RawEntity<String> {
     @NotNull

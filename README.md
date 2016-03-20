@@ -1,7 +1,12 @@
 # competence
 A Confluence plug-in for managing the competences in the organization, in LinkedIn style with tag clouds.
 
-Run the: `./getWikipediaArticles.sh`
+This is work-in-progress. When complete, this will have:
+* Management of teams, automatic generation of tag clouds per team.
+* Endorsement and suggestions of competence tags for colleagues.
+* Competence tags are enforced to be Wikipedia article names, and have links to Wikipedia.
+
+To get the initial content for the tag autocomplete, run the: `./getWikipediaArticles.sh`
 
 Also run: `cd src/main/resources/js; npm install`
 
