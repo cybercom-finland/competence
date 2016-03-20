@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<atlassian-plugin key="com.cybercom.confluence.competence.confluence-competence-plugin" name="competence"
+<atlassian-plugin key="com.cybercom.confluence.competence.confluence-competence-plugin" name="competenceService"
 	plugins-version="2">
 	<plugin-info>
 		<description>${project.description}</description>
@@ -12,16 +12,16 @@
     <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects">
       <description>Component to access Active Objects functionality from the plugin</description>
     </component-import>
-    <component key="tx-processor" name="Transactional Annotation Processor" class="com.atlassian.activeobjects.external.TransactionalAnnotationProcessor">
-      <description>Processes @Transactional annotations.</description>
-    </component>
     <ao key="ao-module">
       <description>The module configuring the Active Objects service used by this plugin</description>
       <entity>com.cybercom.confluence.competence.dao.Competence</entity>
       <entity>com.cybercom.confluence.competence.dao.Person</entity>
       <entity>com.cybercom.confluence.competence.dao.Team</entity>
     </ao>
-    <component name="Competence Component" class="com.cybercom.confluence.competence.service.impl.CompetenceServiceImpl" key="competenceComponent"/>
+    <component key="tx-processor" name="Transactional Annotation Processor" class="com.atlassian.activeobjects.external.TransactionalAnnotationProcessor">
+      <description>Processes @Transactional annotations.</description>
+    </component>
+    <component name="Competence Service" class="com.cybercom.confluence.competence.service.impl.CompetenceServiceImpl" key="competenceService" />
 	<!-- add our i18n resource -->
 	<resource type="i18n" name="i18n" location="confluence-competence-plugin" />
 	<!-- add our web resources -->

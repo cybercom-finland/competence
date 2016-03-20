@@ -2,10 +2,9 @@ package com.cybercom.confluence.competence.dao;
 
 import java.util.List;
 
+import net.java.ao.Entity;
 import net.java.ao.Preload;
-import net.java.ao.RawEntity;
 import net.java.ao.schema.NotNull;
-import net.java.ao.schema.PrimaryKey;
 import net.java.ao.schema.Table;
 
 /**
@@ -13,12 +12,11 @@ import net.java.ao.schema.Table;
  */
 @Preload
 @Table("COMPETENCE_COMPETENCE")
-public interface Competence extends RawEntity<String> {
+public interface Competence extends Entity {
     /**
      * @return For example: "JavaScript"
      */
     @NotNull
-    @PrimaryKey("ID")
     public String getTag();
     public void setTag(String tag);
     /**
@@ -26,4 +24,7 @@ public interface Competence extends RawEntity<String> {
      */
     public List<String> getEndorsements();
     public void setEndorsements(List<String> endorsements);
+    
+    public Person getPerson();
+    public void setPerson(Person person);
 }

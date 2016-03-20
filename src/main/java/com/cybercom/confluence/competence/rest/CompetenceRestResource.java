@@ -47,14 +47,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Produces({MediaType.APPLICATION_JSON})
 public class CompetenceRestResource {
     @Autowired
-    private CompetenceService competenceComponent;
+    private CompetenceService competenceService;
     private static final String AUTOCOMPLETE = "autocomplete";
     private static final int MAX_RESULTS = 10;
     private final String redisHost;
     private final JedisPool pool;
 
-    public CompetenceRestResource(CompetenceService competenceComponent) {
-        this.competenceComponent = competenceComponent;
+    public CompetenceRestResource(CompetenceService competenceService) {
+        this.competenceService = competenceService;
         
         // TODO: Put in a cloud Redis here.
         redisHost = "localhost";
@@ -105,7 +105,7 @@ public class CompetenceRestResource {
     @Path("people/{id}")
     public Response getPerson(@PathParam("id") String id)
     {
-        return Response.ok(competenceComponent.getPerson(id)).build();
+        return Response.ok(competenceService.getPerson(id)).build();
     }
 
     @GET
@@ -113,7 +113,7 @@ public class CompetenceRestResource {
     @Path("people")
     public Response getPeople()
     {
-        return Response.ok(new CompetenceRestPeopleModel(competenceComponent.getAllPeople())).build();
+        return Response.ok(new CompetenceRestPeopleModel(competenceService.getAllPeople())).build();
     }
 
     @PUT
@@ -121,7 +121,7 @@ public class CompetenceRestResource {
     @Path("people/{id}")
     public Response addPerson(@PathParam("id") String id, @QueryParam("body") String body)
     {
-        return Response.ok(new CompetenceRestPeopleModel(competenceComponent.getAllPeople())).build();
+        return Response.ok(new CompetenceRestPeopleModel(competenceService.getAllPeople())).build();
     }
     
     @GET

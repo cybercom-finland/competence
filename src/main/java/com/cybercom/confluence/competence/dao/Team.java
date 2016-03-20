@@ -17,6 +17,6 @@ public interface Team extends Entity {
     /**
      * @return The list of Confluence ids who are in this team.
      */
-    public List<String> getEndorsements();
-    public void setEndorsements(List<String> endorsements);
+    public List<String> getMembers();
+    public void setMembers(List<String> members);
 }

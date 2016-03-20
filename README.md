@@ -28,6 +28,5 @@ Screenshots
 ===========
 
 ![screenshot](./pics/confluence_tab.png "Screenshot")
-[]()
 
 

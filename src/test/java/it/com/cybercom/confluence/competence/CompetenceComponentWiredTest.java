@@ -12,17 +12,17 @@ import static org.junit.Assert.assertEquals;
 public class CompetenceComponentWiredTest
 {
     private final ApplicationProperties applicationProperties;
-    private final CompetenceService competenceComponent;
+    private final CompetenceService competenceService;
 
-    public CompetenceComponentWiredTest(ApplicationProperties applicationProperties, CompetenceService competenceComponent)
+    public CompetenceComponentWiredTest(ApplicationProperties applicationProperties, CompetenceService competenceService)
     {
         this.applicationProperties = applicationProperties;
-        this.competenceComponent = competenceComponent;
+        this.competenceService = competenceService;
     }
 
     @Test
     public void testMyName()
     {
-        assertEquals("names do not match!", "competenceComponent", competenceComponent.getName());
+        assertEquals("names do not match!", "competenceService", competenceService.getName());
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.atlassian.activeobjects.tx.Transactional;
 import com.cybercom.confluence.competence.rest.model.CompetenceRestPersonModel;
+import com.cybercom.confluence.competence.rest.model.CompetenceRestTeamModel;
 
 @Transactional
 public interface CompetenceService
@@ -15,4 +16,12 @@ public interface CompetenceService
     void putPerson(String name, CompetenceRestPersonModel person);
 
     CompetenceRestPersonModel getPerson(String id);
+
+    void deletePerson(String confluenceId);
+
+    void deleteTeam(Integer id);
+
+    void putTeam(String name, List<String> members);
+
+    CompetenceRestTeamModel getTeam(Integer id);
 }

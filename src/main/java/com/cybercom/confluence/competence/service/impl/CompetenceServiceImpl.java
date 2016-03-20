@@ -3,7 +3,9 @@ package com.cybercom.confluence.competence.service.impl;
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.cybercom.confluence.competence.dao.Competence;
 import com.cybercom.confluence.competence.dao.Person;
+import com.cybercom.confluence.competence.dao.Team;
 import com.cybercom.confluence.competence.rest.model.CompetenceRestPersonModel;
+import com.cybercom.confluence.competence.rest.model.CompetenceRestTeamModel;
 import com.cybercom.confluence.competence.service.CompetenceService;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class CompetenceServiceImpl implements CompetenceService
 
     public String getName()
     {
-        return "competenceComponent";
+        return "competenceService";
     }
 
     @Override
@@ -52,22 +54,66 @@ public class CompetenceServiceImpl implements CompetenceService
         return competencePerson;
     }
 
-
     @Override
     public void putPerson(String confluenceId, CompetenceRestPersonModel competencePerson) {
+        final Person person = restPersonToPerson(confluenceId, competencePerson);
+        person.save();
+    }
+
+    private Person restPersonToPerson(String confluenceId, CompetenceRestPersonModel competencePerson) {
         final Person person = ao.create(Person.class);
         person.setConfluenceId(confluenceId);
-        person.setSuggestedCompetences(new ArrayList<String>());
         final List<Competence> competences = new ArrayList<Competence>();
         for (Entry<String, List<String>> entry : competencePerson.getCompetences().entrySet()) {
             Competence competence = ao.create(Competence.class);
             competence.setTag(entry.getKey());
             competence.setEndorsements(entry.getValue());
+            competence.setPerson(person);
             competence.save();
             competences.add(competence);
         }
         person.setCompetences(competences);
-        person.save();
+        final List<Competence> suggestedCompetences = new ArrayList<Competence>();
+        for (Entry<String, List<String>> entry : competencePerson.getSuggestedCompetences().entrySet()) {
+            Competence suggestedCompetence = ao.create(Competence.class);
+            suggestedCompetence.setTag(entry.getKey());
+            suggestedCompetence.setEndorsements(entry.getValue());
+            suggestedCompetence.setPerson(person);
+            suggestedCompetence.save();
+            competences.add(suggestedCompetence);
+        }
+        person.setSuggestedCompetences(suggestedCompetences);
+        return person;
+    }
+
+
+    @Override
+    public void deletePerson(String confluenceId) {
+        Person person = ao.get(Person.class, confluenceId);
+        ao.delete(person);
+    }
+
+    @Override
+    public void deleteTeam(Integer id) {
+        Team team = ao.get(Team.class, id);
+        ao.delete(team);
+    }
+
+    @Override
+    public void putTeam(String name, List<String> members) {
+        final Team team = ao.create(Team.class);
+        team.setName(name);
+        team.setMembers(members);
+        team.save();
+    }
+
+    @Override
+    public CompetenceRestTeamModel getTeam(Integer id) {
+        return teamToRestTeam(ao.get(Team.class, id));
+    }
+
+    private CompetenceRestTeamModel teamToRestTeam(Team team) {
+        return new CompetenceRestTeamModel(team.getID(), team.getName(), team.getMembers());
     }
 
 
