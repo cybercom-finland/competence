@@ -2,7 +2,8 @@
 A Confluence plug-in for managing the competences in the organization, in LinkedIn style with tag clouds.
 
 This is work-in-progress. When complete, this will have:
-* Management of teams, automatic generation of tag clouds per team.
+* Management of teams, automatic generation of tag clouds per team and for the whole company.
+* Navigating between tags and people, clicking a tag gives the list of people with that competence.
 * Endorsement and suggestions of competence tags for colleagues.
 * Competence tags are enforced to be Wikipedia article names, and have links to Wikipedia.
 
