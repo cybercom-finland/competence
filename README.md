@@ -15,3 +15,11 @@ Take your browser to: `http://localhost:1990/confluence`
 The credentials are: admin/admin
 
 See also: [TODO.md](./TODO.md)
+
+Screenshots
+===========
+
+![screenshot](./pics/confluence_tab.png "Screenshot")
+[]()
+
+
