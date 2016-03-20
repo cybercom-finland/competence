@@ -13,3 +13,5 @@ Run with: `atlas-run` (If you get weird errors about required plugin missing, yo
 Take your browser to: `http://localhost:1990/confluence`
 
 The credentials are: admin/admin
+
+See also: [TODO.md](./TODO.md)

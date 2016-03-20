@@ -1,9 +1,9 @@
 package com.cybercom.confluence.competence.rest;
 
-import com.atlassian.bandana.BandanaManager;
 import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
-import com.atlassian.spring.container.ContainerManager;
-import com.cybercom.confluence.competence.api.CompetenceComponent;
+import com.cybercom.confluence.competence.rest.model.CompetenceRestStringListModel;
+import com.cybercom.confluence.competence.rest.model.CompetenceRestStringModel;
+import com.cybercom.confluence.competence.service.CompetenceService;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.ws.rs.*;
@@ -47,15 +46,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Produces({MediaType.APPLICATION_JSON})
 public class CompetenceRestResource {
     @Autowired
-    private CompetenceComponent competenceComponent;
+    private CompetenceService competenceComponent;
     private static final String AUTOCOMPLETE = "autocomplete";
     private static final int MAX_RESULTS = 10;
-    // TODO: Put in a cloud Redis here.
-    private static final String redisHost = "localhost";
-    private static final JedisPool pool = new JedisPool(new JedisPoolConfig(), redisHost);
+    private final String redisHost;
+    private final JedisPool pool;
 
-    public CompetenceRestResource(CompetenceComponent competenceComponent) {
+    public CompetenceRestResource(CompetenceService competenceComponent) {
         this.competenceComponent = competenceComponent;
+        
+        // TODO: Put in a cloud Redis here.
+        redisHost = "localhost";
+        // 30s timeout for the flushAll.
+        pool = new JedisPool(new JedisPoolConfig(), redisHost, 6379, 30 * 1000);
+        
         new Thread() {
             public void run() {
                 System.out.println("READING ALL ARTICLE TITLES IN FROM WIKIPEDIA...");
@@ -64,8 +68,11 @@ public class CompetenceRestResource {
                 BufferedReader br = new BufferedReader(new InputStreamReader(stream));
                 String line = null;
                 try {
+                    jedis.flushDB();
                     while((line = br.readLine()) != null) {
-                        // Add to Redis Trie here.
+                        // Turning underscores into spaces.
+                        line = line.replace('_', ' ');
+                        // Add to Redis here.
                         jedis.zadd(AUTOCOMPLETE, 0, line);
                     }
                 } catch (IOException e) {

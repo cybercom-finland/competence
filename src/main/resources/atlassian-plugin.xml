@@ -14,8 +14,11 @@
     </component-import>
     <ao key="ao-module">
       <description>The module configuring the Active Objects service used by this plugin</description>
+      <entity>com.cybercom.confluence.competence.dao.Competence</entity>
+      <entity>com.cybercom.confluence.competence.dao.Person</entity>
+      <entity>com.cybercom.confluence.competence.dao.Team</entity>
     </ao>
-    <component name="Competence Component" class="com.cybercom.confluence.competence.impl.CompetenceComponentImpl" key="competenceComponent"/>
+    <component name="Competence Component" class="com.cybercom.confluence.competence.service.impl.CompetenceServiceImpl" key="competenceComponent"/>
 	<!-- add our i18n resource -->
 	<resource type="i18n" name="i18n" location="confluence-competence-plugin" />
 	<!-- add our web resources -->

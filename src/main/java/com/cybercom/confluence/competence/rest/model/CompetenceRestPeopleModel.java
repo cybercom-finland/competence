@@ -1,4 +1,4 @@
-package com.cybercom.confluence.competence.rest;
+package com.cybercom.confluence.competence.rest.model;
 
 import java.util.List;
 

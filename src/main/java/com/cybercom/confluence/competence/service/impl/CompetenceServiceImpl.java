@@ -1,19 +1,19 @@
-package com.cybercom.confluence.competence.impl;
+package com.cybercom.confluence.competence.service.impl;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
-import com.cybercom.confluence.competence.api.CompetenceComponent;
-import com.cybercom.confluence.competence.rest.CompetencePersonModel;
+import com.cybercom.confluence.competence.rest.model.CompetencePersonModel;
+import com.cybercom.confluence.competence.service.CompetenceService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
 
-public class CompetenceComponentImpl implements CompetenceComponent
+public class CompetenceServiceImpl implements CompetenceService
 {
     private final ActiveObjects ao;
 
-    public CompetenceComponentImpl(ActiveObjects ao)
+    public CompetenceServiceImpl(ActiveObjects ao)
     {
         this.ao = ao;
     }
