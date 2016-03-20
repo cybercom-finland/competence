@@ -11,7 +11,7 @@ public class CompetenceComponentUnitTest
     @Test
     public void testMyName()
     {
-        CompetenceComponent component = new CompetenceComponentImpl();
+        CompetenceComponent component = new CompetenceComponentImpl(null);
         assertEquals("names do not match!", "competenceComponent",component.getName());
     }
 }

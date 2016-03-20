@@ -12,6 +12,9 @@
     <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects">
       <description>Component to access Active Objects functionality from the plugin</description>
     </component-import>
+    <ao key="ao-module">
+      <description>The module configuring the Active Objects service used by this plugin</description>
+    </ao>
     <component name="Competence Component" class="com.cybercom.confluence.competence.impl.CompetenceComponentImpl" key="competenceComponent"/>
 	<!-- add our i18n resource -->
 	<resource type="i18n" name="i18n" location="confluence-competence-plugin" />

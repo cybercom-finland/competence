@@ -11,10 +11,11 @@ import javax.inject.Named;
 
 public class CompetenceComponentImpl implements CompetenceComponent
 {
-    private ActiveObjects ao;
+    private final ActiveObjects ao;
 
-    public CompetenceComponentImpl()
+    public CompetenceComponentImpl(ActiveObjects ao)
     {
+        this.ao = ao;
     }
     
 
