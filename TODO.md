@@ -31,6 +31,6 @@ Note:
 See references:
 
 * REST API: https://developer.atlassian.com/docs/atlassian-platform-common-components/rest-api-development/rest-plugin-module
-* Bandana: https://developer.atlassian.com/confdev/development-resources/confluence-architecture/confluence-internals/persistence-in-confluence
+* Active Objects: https://developer.atlassian.com/docs/atlassian-platform-common-components/active-objects/getting-started-with-active-objects
 * system.profile: https://developer.atlassian.com/confdev/confluence-plugin-guide/confluence-plugin-module-types/web-ui-modules
 * tag cloud: https://github.com/timdream/wordcloud2.js/blob/gh-pages/README.md

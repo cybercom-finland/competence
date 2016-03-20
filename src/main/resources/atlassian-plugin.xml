@@ -9,6 +9,10 @@
 		<param name="plugin-icon">images/pluginIcon.png</param>
 		<param name="plugin-logo">images/pluginLogo.png</param>
 	</plugin-info>
+    <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects">
+      <description>Component to access Active Objects functionality from the plugin</description>
+    </component-import>
+    <component name="Competence Component" class="com.cybercom.confluence.competence.impl.CompetenceComponentImpl" key="competenceComponent"/>
 	<!-- add our i18n resource -->
 	<resource type="i18n" name="i18n" location="confluence-competence-plugin" />
 	<!-- add our web resources -->
@@ -24,7 +28,7 @@
 		<resource type="download" name="images/" location="/images" />
 		<context>confluence-competence-plugin</context>
 	</web-resource>
-	<!-- Responds in: http://host:port/context/rest/competence/1.0 -->
+ 	<!-- Responds in: http://host:port/context/rest/competence/1.0 -->
 	<rest name="Competence Rest Resource" i18n-name-key="competence-rest-resource.name"
 		key="competence-rest-resource" path="/competence" version="1.0">
 		<description key="competence-rest-resource.description">Provides the competences from the REST

@@ -1,27 +1,35 @@
 package com.cybercom.confluence.competence.impl;
 
-import com.atlassian.bandana.BandanaManager;
-import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
+import com.atlassian.activeobjects.external.ActiveObjects;
 import com.cybercom.confluence.competence.api.CompetenceComponent;
+import com.cybercom.confluence.competence.rest.CompetencePersonModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Named;
 
-@ExportAsService ({CompetenceComponent.class})
-@Named ("competence")
 public class CompetenceComponentImpl implements CompetenceComponent
 {
-    private BandanaManager bandanaManager;
+    private ActiveObjects ao;
 
     public CompetenceComponentImpl()
     {
     }
     
-    public void setBandanaManager(BandanaManager bandanaManager) {
-        this.bandanaManager = bandanaManager;
-    }
 
     public String getName()
     {
         return "competenceComponent";
+    }
+
+    @Override
+    public List<String> getAllPeople() {
+        System.out.println("AO: " + ao);
+        return new ArrayList<String>();
+    }
+
+    @Override
+    public void putPerson(String name, CompetencePersonModel person) {
     }
 }

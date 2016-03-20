@@ -4,6 +4,7 @@
     <meta name="decorator" content="atl.userprofile" />
     <meta name="tab" content="my-competences"/>
     <script type="text/javascript" src="$req.contextPath/download/resources/com.cybercom.confluence.competence.confluence-competence-plugin:confluence-competence-plugin-resources/wordcloud2.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
   </head>
   #applyDecorator("root")
     #decoratorParam("context" "profile")
@@ -18,7 +19,26 @@
         There is the list of all the teams you belong to.
         It will show your personal tag cloud.
       </p>
+      <div>
+        <form id="addCompetenceField">
+          <input type="text" id="competenceField" list="competenceAutocomplete" placeholder="competence" oninput="refreshAutocomplete()"/>
+          <datalist id="competenceAutocomplete"></datalist>
+          <button type="submit">Add competence</button>
+        </form>
+      </div>
       <script>
+        function refreshAutocomplete() {
+          var dataList = jQuery("#competenceAutocomplete");
+          var input = jQuery("#competenceField");
+          jQuery.get("$req.contextPath/rest/competence/1.0/autocomplete.json",
+            {prefix: input.val()}, function( data ) {
+              console.log("Got data: " + JSON.stringify(data.value));
+              dataList.empty();
+              data.value.sort().forEach(function(item) {
+                dataList.append('<option value="' + item + '">' + item + '</option>');
+              });
+          });
+        }
         function makeWordCloud() {
           if (window.WordCloud) {
             var wordlist = ['JavaScript', 'TypeScript', 'Linux', 'HTML5', 'ikebana', 'smoke signals',
@@ -37,7 +57,7 @@
                 console.log('Item clicked: ' + item);
               },
               weightFactor: function(size) {
-                return Math.sqrt(size / 5) * 50;
+                return Math.log(size + 1) * 30;
               },
               list: list
             };

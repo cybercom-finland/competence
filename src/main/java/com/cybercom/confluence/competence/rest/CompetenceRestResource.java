@@ -99,7 +99,7 @@ public class CompetenceRestResource {
     @Path("people")
     public Response getPeople()
     {
-       return Response.ok(new CompetenceRestStringModel("People")).build();
+        return Response.ok(new CompetenceRestStringListModel(competenceComponent.getAllPeople())).build();
     }
 
     @GET
