@@ -11,6 +11,8 @@ To get the initial content for the tag autocomplete, run the: `./getWikipediaArt
 
 Also run: `cd src/main/resources/js; npm install`
 
+Install Atlassian SDK: https://developer.atlassian.com/docs/getting-started/set-up-the-atlassian-plugin-sdk-and-build-a-project
+
 Create Eclipse project files with: `atlas-mvn eclipse:eclipse`
 
 Run with: `atlas-run` (If you get weird errors about required plugin missing, you can try
