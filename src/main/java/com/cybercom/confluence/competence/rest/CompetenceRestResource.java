@@ -1,6 +1,8 @@
 package com.cybercom.confluence.competence.rest;
 
+import com.atlassian.activeobjects.tx.Transactional;
 import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
+import com.cybercom.confluence.competence.rest.model.CompetenceRestPeopleModel;
 import com.cybercom.confluence.competence.rest.model.CompetenceRestStringListModel;
 import com.cybercom.confluence.competence.rest.model.CompetenceRestStringModel;
 import com.cybercom.confluence.competence.service.CompetenceService;
@@ -95,23 +97,41 @@ public class CompetenceRestResource {
             searchParam = "-";
         }
         Set<String> range = jedis.zrangeByLex(AUTOCOMPLETE, searchParam, "+", 0, MAX_RESULTS);
-        System.out.println("Found: " + range.toString());
-        System.out.println("CompetenceComponent: " + competenceComponent);
         jedis.close();
         return Response.ok(new CompetenceRestStringListModel(new ArrayList<String>(range))).build();
     }
 
     @GET
     @AnonymousAllowed
-    @Path("people")
-    public Response getPeople()
+    @Path("people/{id}")
+    @Transactional
+    public Response getPerson(@PathParam("id") String id)
     {
-        return Response.ok(new CompetenceRestStringListModel(competenceComponent.getAllPeople())).build();
+        return Response.ok(competenceComponent.getPerson(id)).build();
     }
 
     @GET
     @AnonymousAllowed
+    @Path("people")
+    @Transactional
+    public Response getPeople()
+    {
+        return Response.ok(new CompetenceRestPeopleModel(competenceComponent.getAllPeople())).build();
+    }
+
+    @PUT
+    @AnonymousAllowed
+    @Path("people/{id}")
+    @Transactional
+    public Response addPerson(@PathParam("id") String id, @QueryParam("body") String body)
+    {
+        return Response.ok(new CompetenceRestPeopleModel(competenceComponent.getAllPeople())).build();
+    }
+    
+    @GET
+    @AnonymousAllowed
     @Path("teams")
+    @Transactional
     public Response getTeams()
     {
        return Response.ok(new CompetenceRestStringModel("Teams")).build();

@@ -2,13 +2,15 @@ package com.cybercom.confluence.competence.service;
 
 import java.util.List;
 
-import com.cybercom.confluence.competence.rest.model.CompetencePersonModel;
+import com.cybercom.confluence.competence.rest.model.CompetenceRestPersonModel;
 
 public interface CompetenceService
 {
     String getName();
 
-    List<String> getAllPeople();
+    List<CompetenceRestPersonModel> getAllPeople();
 
-    void putPerson(String name, CompetencePersonModel person);
+    void putPerson(String name, CompetenceRestPersonModel person);
+
+    CompetenceRestPersonModel getPerson(String id);
 }

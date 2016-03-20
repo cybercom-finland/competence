@@ -12,6 +12,9 @@
     <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects">
       <description>Component to access Active Objects functionality from the plugin</description>
     </component-import>
+    <component key="tx-processor" name="Transactional Annotation Processor" class="com.atlassian.activeobjects.external.TransactionalAnnotationProcessor">
+      <description>Processes @Transactional annotations.</description>
+    </component>
     <ao key="ao-module">
       <description>The module configuring the Active Objects service used by this plugin</description>
       <entity>com.cybercom.confluence.competence.dao.Competence</entity>

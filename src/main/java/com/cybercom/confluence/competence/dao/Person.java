@@ -14,7 +14,7 @@ public interface Person extends RawEntity<String> {
     public String getConfluenceId();
     public void setConfluenceId(String confluenceId);
     public List<Competence> getCompetences();
-    public void setCompetences();
+    public void setCompetences(List<Competence> competences);
     public List<Competence> getSuggestedCompetences();
-    public void setSuggestedCompetences();
+    public void setSuggestedCompetences(List<String> suggestedCompetences);
 }
