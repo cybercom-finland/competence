@@ -1,6 +1,7 @@
 package com.cybercom.confluence.competence.service.impl;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
+import com.atlassian.bandana.BandanaManager;
 import com.cybercom.confluence.competence.dao.Competence;
 import com.cybercom.confluence.competence.dao.Person;
 import com.cybercom.confluence.competence.dao.Team;
@@ -14,13 +15,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+
 public class CompetenceServiceImpl implements CompetenceService
 {
     private final ActiveObjects ao;
+    private final BandanaManager bandanaManager;
 
-    public CompetenceServiceImpl(ActiveObjects ao)
+    public CompetenceServiceImpl(ActiveObjects ao, BandanaManager bandanaManager)
     {
         this.ao = ao;
+        this.bandanaManager = bandanaManager;
     }
     
 
@@ -30,7 +36,8 @@ public class CompetenceServiceImpl implements CompetenceService
     }
 
     @Override
-    public List<CompetenceRestPersonModel> getAllPeople() {
+    public List<CompetenceRestPersonModel> getAllPeople() throws JSONException {
+        System.out.println("BandanaManager: " + this.bandanaManager);
         List<CompetenceRestPersonModel> results = new ArrayList<CompetenceRestPersonModel>();
         for (Person person : ao.find(Person.class)) {
             results.add(personToRestPerson(person));
@@ -38,21 +45,31 @@ public class CompetenceServiceImpl implements CompetenceService
         return results;
     }
 
-    private CompetenceRestPersonModel personToRestPerson(Person person) {
+    private CompetenceRestPersonModel personToRestPerson(Person person) throws JSONException {
         CompetenceRestPersonModel competencePerson = new CompetenceRestPersonModel();
         competencePerson.setId(person.getConfluenceId());
         Map<String, List<String>> competences = new HashMap<String, List<String>>();
         for (Competence competence : person.getCompetences()) {
-            competences.put(competence.getTag(), competence.getEndorsements());
+            competences.put(competence.getTag(), toArray(new JSONArray(competence.getEndorsements())));
         }
         competencePerson.setCompetences(competences);
         Map<String, List<String>> suggestedCompetences = new HashMap<String, List<String>>();
         for (Competence suggestedCompetence : person.getSuggestedCompetences()) {
-            suggestedCompetences.put(suggestedCompetence.getTag(), suggestedCompetence.getEndorsements());
+            suggestedCompetences.put(suggestedCompetence.getTag(),
+                    toArray(new JSONArray(suggestedCompetence.getEndorsements())));
         }
         competencePerson.setSuggestedCompetences(suggestedCompetences);
         return competencePerson;
     }
+
+    private List<String> toArray(JSONArray jsonArray) throws JSONException {
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            list.add(jsonArray.getString(i));
+        }
+        return list;
+    }
+
 
     @Override
     public void putPerson(String confluenceId, CompetenceRestPersonModel competencePerson) {
@@ -63,26 +80,20 @@ public class CompetenceServiceImpl implements CompetenceService
     private Person restPersonToPerson(String confluenceId, CompetenceRestPersonModel competencePerson) {
         final Person person = ao.create(Person.class);
         person.setConfluenceId(confluenceId);
-        final List<Competence> competences = new ArrayList<Competence>();
         for (Entry<String, List<String>> entry : competencePerson.getCompetences().entrySet()) {
             Competence competence = ao.create(Competence.class);
             competence.setTag(entry.getKey());
-            competence.setEndorsements(entry.getValue());
+            competence.setEndorsements(new JSONArray(entry.getValue()).toString());
             competence.setPerson(person);
             competence.save();
-            competences.add(competence);
         }
-        person.setCompetences(competences);
-        final List<Competence> suggestedCompetences = new ArrayList<Competence>();
         for (Entry<String, List<String>> entry : competencePerson.getSuggestedCompetences().entrySet()) {
             Competence suggestedCompetence = ao.create(Competence.class);
             suggestedCompetence.setTag(entry.getKey());
-            suggestedCompetence.setEndorsements(entry.getValue());
+            suggestedCompetence.setEndorsements(new JSONArray(entry.getValue()).toString());
             suggestedCompetence.setPerson(person);
             suggestedCompetence.save();
-            competences.add(suggestedCompetence);
         }
-        person.setSuggestedCompetences(suggestedCompetences);
         return person;
     }
 
@@ -103,22 +114,23 @@ public class CompetenceServiceImpl implements CompetenceService
     public void putTeam(String name, List<String> members) {
         final Team team = ao.create(Team.class);
         team.setName(name);
-        team.setMembers(members);
+        team.setMembers(new JSONArray(members).toString());
         team.save();
     }
 
     @Override
-    public CompetenceRestTeamModel getTeam(Integer id) {
+    public CompetenceRestTeamModel getTeam(Integer id) throws JSONException {
         return teamToRestTeam(ao.get(Team.class, id));
     }
 
-    private CompetenceRestTeamModel teamToRestTeam(Team team) {
-        return new CompetenceRestTeamModel(team.getID(), team.getName(), team.getMembers());
+    private CompetenceRestTeamModel teamToRestTeam(Team team) throws JSONException {
+        return new CompetenceRestTeamModel(team.getID(), team.getName(),
+                toArray(new JSONArray(team.getMembers())));
     }
 
 
     @Override
-    public CompetenceRestPersonModel getPerson(String id) {
+    public CompetenceRestPersonModel getPerson(String id) throws JSONException {
         return personToRestPerson(ao.get(Person.class, id));
     }
 }

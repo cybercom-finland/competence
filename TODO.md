@@ -1,6 +1,5 @@
 TODO:
 
-* getAllPeople causes: invoking ActiveObjects before <ao> configuration module is enabled or plugin is missing an <ao> configuration module.
 * Polymer
 * A panel for managing competences for self and voting/suggesting new competences for others.
 * REST API competence and team information management.
@@ -39,6 +38,7 @@ Note:
 * No access control, anyone can edit teams.
 * Competences are always Wikipedia article names, download the exhaustive list from here: http://dumps.wikimedia.org/enwiki/latest/enwiki-latest-all-titles-in-ns0.gz
   * Just run: `./getWikipediaArticles.sh`
+* Population of the autocomplete Redis database starts at the first autocomplete request, and takes some minutes. Words starting with 'A' work first.
 
 See references:
 

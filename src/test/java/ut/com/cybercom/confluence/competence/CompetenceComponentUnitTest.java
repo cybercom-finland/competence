@@ -12,7 +12,7 @@ public class CompetenceComponentUnitTest
     @Test
     public void testMyName()
     {
-        CompetenceService service = new CompetenceServiceImpl(null);
+        CompetenceService service = new CompetenceServiceImpl(null, null);
         assertEquals("names do not match!", "competenceService", service.getName());
     }
 }

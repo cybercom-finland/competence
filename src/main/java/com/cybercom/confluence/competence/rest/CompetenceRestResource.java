@@ -21,6 +21,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jettison.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -103,7 +104,7 @@ public class CompetenceRestResource {
     @GET
     @AnonymousAllowed
     @Path("people/{id}")
-    public Response getPerson(@PathParam("id") String id)
+    public Response getPerson(@PathParam("id") String id) throws JSONException
     {
         return Response.ok(competenceService.getPerson(id)).build();
     }
@@ -111,7 +112,7 @@ public class CompetenceRestResource {
     @GET
     @AnonymousAllowed
     @Path("people")
-    public Response getPeople()
+    public Response getPeople() throws JSONException
     {
         return Response.ok(new CompetenceRestPeopleModel(competenceService.getAllPeople())).build();
     }
@@ -119,7 +120,7 @@ public class CompetenceRestResource {
     @PUT
     @AnonymousAllowed
     @Path("people/{id}")
-    public Response addPerson(@PathParam("id") String id, @QueryParam("body") String body)
+    public Response addPerson(@PathParam("id") String id, @QueryParam("body") String body) throws JSONException
     {
         return Response.ok(new CompetenceRestPeopleModel(competenceService.getAllPeople())).build();
     }
