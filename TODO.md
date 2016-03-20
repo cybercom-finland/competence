@@ -1,5 +1,6 @@
 TODO:
 
+* getAllPeople causes: invoking ActiveObjects before <ao> configuration module is enabled or plugin is missing an <ao> configuration module.
 * Polymer
 * A panel for managing competences for self and voting/suggesting new competences for others.
 * REST API competence and team information management.
