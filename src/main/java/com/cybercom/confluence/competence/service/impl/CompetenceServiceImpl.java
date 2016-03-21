@@ -5,12 +5,9 @@ import com.cybercom.confluence.competence.rest.model.CompetenceRestPersonModel;
 import com.cybercom.confluence.competence.rest.model.CompetenceRestTeamModel;
 import com.cybercom.confluence.competence.service.CompetenceService;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.google.common.collect.Lists;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
 import com.cybercom.confluence.competence.bandana.*;
 
 public class CompetenceServiceImpl implements CompetenceService
@@ -29,12 +26,12 @@ public class CompetenceServiceImpl implements CompetenceService
     }
 
     @Override
-    public List<String> getAllPeople() throws JSONException {
+    public List<String> getAllPeople() {
         return Lists.newArrayList(bandanaManager.getKeys(new PeopleContext()));
     }
 
     @Override
-    public List<String> getAllTeams() throws JSONException {
+    public List<String> getAllTeams() {
         return Lists.newArrayList(bandanaManager.getKeys(new TeamsContext()));
     }
 
