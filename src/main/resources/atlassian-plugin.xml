@@ -9,14 +9,6 @@
 		<param name="plugin-icon">images/pluginIcon.png</param>
 		<param name="plugin-logo">images/pluginLogo.png</param>
 	</plugin-info>
-    <ao key="ao-module">
-      <description>The module configuring the Active Objects service used by this plugin</description>
-      <entity>com.cybercom.confluence.competence.dao.Competence</entity>
-      <entity>com.cybercom.confluence.competence.dao.Person</entity>
-      <entity>com.cybercom.confluence.competence.dao.Team</entity>
-    </ao>
-    <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects" />
-    <component key="tx-processor" name="Transactional Annotation Processor" class="com.atlassian.activeobjects.external.TransactionalAnnotationProcessor" />
     <component name="Competence Service" class="com.cybercom.confluence.competence.service.impl.CompetenceServiceImpl" key="competenceService" />
 	<!-- add our i18n resource -->
 	<resource type="i18n" name="i18n" location="confluence-competence-plugin" />
