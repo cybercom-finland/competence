@@ -114,7 +114,7 @@ public class CompetenceRestResource {
     @Path("people")
     public Response getPeople() throws JSONException
     {
-        return Response.ok(new CompetenceRestPeopleModel(competenceService.getAllPeople())).build();
+        return Response.ok(new CompetenceRestStringListModel(competenceService.getAllPeople())).build();
     }
 
     @PUT
@@ -122,7 +122,7 @@ public class CompetenceRestResource {
     @Path("people/{id}")
     public Response addPerson(@PathParam("id") String id, @QueryParam("body") String body) throws JSONException
     {
-        return Response.ok(new CompetenceRestPeopleModel(competenceService.getAllPeople())).build();
+        return Response.ok(new CompetenceRestStringListModel(competenceService.getAllPeople())).build();
     }
     
     @GET

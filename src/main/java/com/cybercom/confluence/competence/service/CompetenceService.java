@@ -13,7 +13,7 @@ public interface CompetenceService
 {
     String getName();
 
-    List<CompetenceRestPersonModel> getAllPeople() throws JSONException;
+    List<String> getAllPeople() throws JSONException;
 
     void putPerson(String name, CompetenceRestPersonModel person);
 
@@ -21,9 +21,11 @@ public interface CompetenceService
 
     void deletePerson(String confluenceId);
 
-    void deleteTeam(Integer id);
+    List<String> getAllTeams() throws JSONException;
 
-    void putTeam(String name, List<String> members);
+    void putTeam(String teamId, CompetenceRestTeamModel competenceTeam);
 
-    CompetenceRestTeamModel getTeam(Integer id) throws JSONException;
+    CompetenceRestTeamModel getTeam(String teamId);
+
+    void deleteTeam(String teamId);
 }
