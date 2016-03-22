@@ -5,7 +5,7 @@ Humans over square-shaped pegs measured in CV-project-month-kilograms. Generalis
 
 This project was born out of a goal to shift weight in evaluating competences and development goals of software teams from
 CV-based project-month Excels of specialists towards human-shaped, peer-reviewed word clouds of people's competences
-and interests. This shows a more organic and realistic image of people and teams on a glance
+and interests. This shows a more organic and realistic image of people and teams at a glance
 better than cumulative months in Excels.
 
 Atlassian tools are de facto in the industry and it is a small hassle for the people to fill up and update their word clouds
