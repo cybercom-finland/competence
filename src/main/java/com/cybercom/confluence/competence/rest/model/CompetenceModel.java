@@ -6,20 +6,20 @@ import javax.xml.bind.annotation.*;
 public class CompetenceModel {
 
     @XmlElement(name = "value")
-    private String message;
+    private String name;
 
     public CompetenceModel() {
     }
 
-    public CompetenceModel(String message) {
-        this.message = message;
+    public CompetenceModel(String name) {
+        this.name = name;
     }
 
-    public String getMessage() {
-        return message;
+    public String getName() {
+        return name;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setName(String newName) {
+        this.name = newName;
     }
 }

@@ -99,6 +99,7 @@ public class CompetenceRestResource {
         }
         Set<String> range = jedis.zrangeByLex(AUTOCOMPLETE, searchParam, "+", 0, MAX_RESULTS);
         jedis.close();
+        
         return Response.ok(new CompetenceListModel(new ArrayList<String>(range))).build();
     }
 
