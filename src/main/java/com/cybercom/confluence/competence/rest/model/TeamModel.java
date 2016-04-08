@@ -52,4 +52,10 @@ public class TeamModel {
     		peopleList.getPeople().add(person);
     	}
     }
+    
+    public void removePerson(PersonModel person){
+    	if(peopleList.getPeople().contains(person)){
+    		peopleList.getPeople().remove(person);
+    	}
+    }
 }
