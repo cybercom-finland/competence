@@ -8,20 +8,20 @@ import javax.xml.bind.annotation.*;
 public class PeopleModel {
 
     @XmlElement(name = "value")
-    private List<PersonModel> results;
+    private List<PersonModel> peopleList;
     
     public PeopleModel() {
     }
 
-    public PeopleModel(List<PersonModel> results) {
-        this.results = results;
+    public PeopleModel(List<PersonModel> peopleList) {
+        this.peopleList = peopleList;
     }
 
-    public List<PersonModel> getResults() {
-        return results;
+    public List<PersonModel> getPeople() {
+        return peopleList;
     }
 
-    public void setResults(List<PersonModel> results) {
-        this.results = results;
+    public void setPeople(List<PersonModel> peopleList) {
+        this.peopleList = peopleList;
     }
 }
