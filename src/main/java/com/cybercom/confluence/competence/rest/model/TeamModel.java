@@ -1,7 +1,5 @@
 package com.cybercom.confluence.competence.rest.model;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "team")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -14,15 +12,15 @@ public class TeamModel {
     private String name;
     
     @XmlElement(name = "people")
-    private List<PersonModel> personList;
+    private PeopleModel peopleList;
 
     public TeamModel() {
     }
 
-    public TeamModel(int id, String name, List<PersonModel> people) {
+    public TeamModel(int id, String name, PeopleModel people) {
         this.id = id;
         this.name = name;
-        this.personList = people;
+        this.peopleList = people;
     }
 
     public Integer getId() {
@@ -41,11 +39,17 @@ public class TeamModel {
         this.name = name;
     }
     
-    public List<PersonModel> getPeople() {
-        return personList;
+    public PeopleModel getPeople() {
+        return peopleList;
     }
 
-    public void setPeople(List<PersonModel> people) {
-        this.personList = people;
+    public void setPeople(PeopleModel people) {
+        this.peopleList = people;
+    }
+    
+    public void addPerson(PersonModel person){
+    	if(!peopleList.getPeople().contains(person)){
+    		peopleList.getPeople().add(person);
+    	}
     }
 }
