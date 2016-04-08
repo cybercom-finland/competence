@@ -1,8 +1,8 @@
 package com.cybercom.confluence.competence.service.impl;
 
 import com.atlassian.bandana.BandanaManager;
-import com.cybercom.confluence.competence.rest.model.CompetenceRestPersonModel;
-import com.cybercom.confluence.competence.rest.model.CompetenceRestTeamModel;
+import com.cybercom.confluence.competence.rest.model.PersonModel;
+import com.cybercom.confluence.competence.rest.model.TeamModel;
 import com.cybercom.confluence.competence.service.CompetenceService;
 
 import java.util.List;
@@ -36,27 +36,27 @@ public class CompetenceServiceImpl implements CompetenceService
     }
 
     @Override
-    public void putPerson(String confluenceId, CompetenceRestPersonModel competencePerson) {
+    public void putPerson(String confluenceId, PersonModel competencePerson) {
         PeopleContext peopleContext = new PeopleContext();
         bandanaManager.setValue(peopleContext, confluenceId, competencePerson);
     }
 
     @Override
-    public void putTeam(String teamId, CompetenceRestTeamModel competenceTeam) {
+    public void putTeam(String teamId, TeamModel competenceTeam) {
         TeamsContext teamsContext = new TeamsContext();
         bandanaManager.setValue(teamsContext, teamId, competenceTeam);
     }
 
     @Override
-    public CompetenceRestPersonModel getPerson(String confluenceId) {
+    public PersonModel getPerson(String confluenceId) {
         PeopleContext peopleContext = new PeopleContext();
-        return (CompetenceRestPersonModel) bandanaManager.getValue(peopleContext, confluenceId);
+        return (PersonModel) bandanaManager.getValue(peopleContext, confluenceId);
     }
 
     @Override
-    public CompetenceRestTeamModel getTeam(String teamId) {
+    public TeamModel getTeam(String teamId) {
         TeamsContext teamsContext = new TeamsContext();
-        return (CompetenceRestTeamModel) bandanaManager.getValue(teamsContext, teamId);
+        return (TeamModel) bandanaManager.getValue(teamsContext, teamId);
     }
 
     @Override

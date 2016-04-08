@@ -3,15 +3,15 @@ package com.cybercom.confluence.competence.rest.model;
 import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "message")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CompetenceRestStringModel {
+public class CompetenceModel {
 
     @XmlElement(name = "value")
     private String message;
 
-    public CompetenceRestStringModel() {
+    public CompetenceModel() {
     }
 
-    public CompetenceRestStringModel(String message) {
+    public CompetenceModel(String message) {
         this.message = message;
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "team")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CompetenceRestTeamModel {
+public class TeamModel {
 
     @XmlElement(name = "id")
     private Integer id;
@@ -14,15 +14,15 @@ public class CompetenceRestTeamModel {
     private String name;
     
     @XmlElement(name = "people")
-    private List<String> people;
+    private List<PersonModel> personList;
 
-    public CompetenceRestTeamModel() {
+    public TeamModel() {
     }
 
-    public CompetenceRestTeamModel(int id, String name, List<String> people) {
+    public TeamModel(int id, String name, List<PersonModel> people) {
         this.id = id;
         this.name = name;
-        this.people = people;
+        this.personList = people;
     }
 
     public Integer getId() {
@@ -41,11 +41,11 @@ public class CompetenceRestTeamModel {
         this.name = name;
     }
     
-    public List<String> getPeople() {
-        return people;
+    public List<PersonModel> getPeople() {
+        return personList;
     }
 
-    public void setPeople(List<String> people) {
-        this.people = people;
+    public void setPeople(List<PersonModel> people) {
+        this.personList = people;
     }
 }

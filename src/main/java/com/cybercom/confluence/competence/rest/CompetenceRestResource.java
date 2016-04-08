@@ -1,9 +1,10 @@
 package com.cybercom.confluence.competence.rest;
 
 import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
-import com.cybercom.confluence.competence.rest.model.CompetenceRestPeopleModel;
-import com.cybercom.confluence.competence.rest.model.CompetenceRestStringListModel;
-import com.cybercom.confluence.competence.rest.model.CompetenceRestStringModel;
+import com.cybercom.confluence.competence.rest.model.PeopleModel;
+import com.cybercom.confluence.competence.rest.model.PersonModel;
+import com.cybercom.confluence.competence.rest.model.CompetenceListModel;
+import com.cybercom.confluence.competence.rest.model.CompetenceModel;
 import com.cybercom.confluence.competence.service.CompetenceService;
 
 import redis.clients.jedis.Jedis;
@@ -98,7 +99,7 @@ public class CompetenceRestResource {
         }
         Set<String> range = jedis.zrangeByLex(AUTOCOMPLETE, searchParam, "+", 0, MAX_RESULTS);
         jedis.close();
-        return Response.ok(new CompetenceRestStringListModel(new ArrayList<String>(range))).build();
+        return Response.ok(new CompetenceListModel(new ArrayList<String>(range))).build();
     }
 
     @GET
@@ -114,15 +115,15 @@ public class CompetenceRestResource {
     @Path("people")
     public Response getPeople() throws JSONException
     {
-        return Response.ok(new CompetenceRestStringListModel(competenceService.getAllPeople())).build();
+        return Response.ok(new CompetenceListModel(competenceService.getAllPeople())).build();
     }
 
     @PUT
     @AnonymousAllowed
     @Path("people/{id}")
-    public Response addPerson(@PathParam("id") String id, @QueryParam("body") String body) throws JSONException
+    public Response addPerson(@PathParam("id") String id) throws JSONException
     {
-        return Response.ok(new CompetenceRestStringListModel(competenceService.getAllPeople())).build();
+        return Response.ok(new PersonModel(id)).build();
     }
     
     @GET
@@ -130,6 +131,6 @@ public class CompetenceRestResource {
     @Path("teams")
     public Response getTeams()
     {
-       return Response.ok(new CompetenceRestStringModel("Teams")).build();
+       return Response.ok(new CompetenceModel("Teams")).build();
     }
 }

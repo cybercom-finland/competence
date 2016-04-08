@@ -1,19 +1,23 @@
 package com.cybercom.confluence.competence.rest.model;
 
+/**
+ * Holds a list of all competences
+ */
+
 import java.util.List;
 
 import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "message")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CompetenceRestStringListModel {
+public class CompetenceListModel {
 
     @XmlElement(name = "value")
     private List<String> results;
 
-    public CompetenceRestStringListModel() {
+    public CompetenceListModel() {
     }
 
-    public CompetenceRestStringListModel(List<String> results) {
+    public CompetenceListModel(List<String> results) {
         this.results = results;
     }
 
