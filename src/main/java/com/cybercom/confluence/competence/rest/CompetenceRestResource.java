@@ -121,10 +121,11 @@ public class CompetenceRestResource {
 
     @PUT
     @AnonymousAllowed
-    @Path("people/{id}")
-    public Response addPerson(@PathParam("id") String id) throws JSONException
+    @Path("people/{name}/{id}")
+    public Response addPerson(@PathParam("name") String name, @PathParam("id") String id) throws JSONException
     {
-        return Response.ok(new PersonModel(id)).build();
+        competenceService.putPerson(name, new PersonModel(id));
+        return Response.ok().build();
     }
     
     @GET
