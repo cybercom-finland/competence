@@ -45,14 +45,28 @@
         }
         
         function test(){
-        	var users = {"vaulues": ["nimi": "asd", "id": "1"]}
+        	var users = {"id" : "1", "nimi" : "risto"};
         	 $.ajax({
         	        type: "POST",
         	        url: "http://risto-virtualbox:1990/confluence/rest/competence/1.0/people/1",
-        	        data: users,
-        	        contentType: "application/json; charset=utf-8",
+        	        data: JSON.stringify(users),
+        	        contentType: "application/json",
         	        dataType: "json",
         	        success: function(data){alert(data);},
+        	        failure: function(errMsg) {
+        	            alert(errMsg);
+        	        }
+        	  });
+        }
+        
+        function getAllUsers(){
+        	var users = {"values" : []};
+        	 $.ajax({
+        	        type: "GET",
+        	        url: "http://risto-virtualbox:1990/confluence/rest/competence/1.0/people/",
+        	        data: users,
+        	        dataType: "json",
+        	        success: function(data){console.log(data);},
         	        failure: function(errMsg) {
         	            alert(errMsg);
         	        }

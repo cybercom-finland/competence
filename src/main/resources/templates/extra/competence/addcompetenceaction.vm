@@ -31,7 +31,8 @@
       <script>
         makeWordCloud();
       </script>
-      <button onClick="test()" type="button">Add competence</button>
+      <button onClick="test()" type="button">test</button>
+      <button onClick="getAllUsers()" type="button">Get All Users</button>
     </body>
   #end
 </html>
