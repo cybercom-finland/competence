@@ -6,3 +6,4 @@ target/*
 src/main/resources/js/node_modules/
 src/main/resources/autocomplete/enwiki-latest-all-titles-in-ns0
 
+/target/
