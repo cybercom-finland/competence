@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.*;
 public class PeopleModel {
 
     @XmlElement(name = "value")
+
     private List<String> results;
+
     
     public PeopleModel() {
     }
@@ -23,5 +25,6 @@ public class PeopleModel {
 
     public void setResults(List<String> results) {
         this.results = results;
+
     }
 }

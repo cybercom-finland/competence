@@ -14,12 +14,16 @@ public class TeamModel {
     private String name;
     
     @XmlElement(name = "people")
+
     private List<String> personList;
+
 
     public TeamModel() {
     }
 
+
     public TeamModel(int id, String name, List<String> people) {
+
         this.id = id;
         this.name = name;
         this.personList = people;
@@ -47,5 +51,6 @@ public class TeamModel {
 
     public void setPeople(List<String> people) {
         this.personList = people;
+
     }
 }

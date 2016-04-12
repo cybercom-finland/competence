@@ -12,20 +12,27 @@ import javax.xml.bind.annotation.*;
 public class CompetenceListModel {
 
     @XmlElement(name = "value")
-    private List<String> results;
+    private List<String> competences;
 
     public CompetenceListModel() {
     }
 
-    public CompetenceListModel(List<String> results) {
-        this.results = results;
+    public CompetenceListModel(List<String> competences) {
+        this.competences = competences;
     }
 
-    public List<String> getResults() {
-        return results;
+    public List<String> getCompetences() {
+        return competences;
     }
 
-    public void setResults(List<String> results) {
-        this.results = results;
+    public void setCompetences(List<String> competences) {
+        this.competences = competences;
+    }
+    
+    public void addCompetence(String newCompetence){
+    	if(!competences.contains(newCompetence))
+    		competences.add(newCompetence);
+    	else
+    		System.out.println("The list already contains competence: " + newCompetence);
     }
 }
