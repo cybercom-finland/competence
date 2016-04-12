@@ -15,14 +15,14 @@ public class PersonModel {
      * Map from the competence name to the list of Confluence ids who have endorsed this.
      */
     @XmlElement(name = "competences")
-    private Map<CompetenceModel, List<PersonModel>> competences;
+    private Map<String, List<String>> competences;
 
     /**
      * Map from the competence name to the list of Confluence ids who have endorsed this.
      * Note that the one who has suggested this is always the only endorser here.
      */
     @XmlElement(name = "suggestedCompetences")
-    private Map<CompetenceModel, List<PersonModel>> suggestedCompetences;
+    private Map<String, List<String>> suggestedCompetences;
 
     public PersonModel() {
     }
@@ -31,7 +31,7 @@ public class PersonModel {
     	this.id = id;
     }
     
-    public PersonModel(String id, Map<CompetenceModel, List<PersonModel>> competences) {
+    public PersonModel(String id, Map<String, List<String>> competences) {
         this.id = id;
         this.competences = competences;
     }
@@ -44,19 +44,19 @@ public class PersonModel {
         return id;
     }
     
-    public void setCompetences(Map<CompetenceModel, List<PersonModel>> competences) {
+    public void setCompetences(Map<String, List<String>> competences) {
         this.competences = competences;
     }
     
-    public Map<CompetenceModel, List<PersonModel>> getCompetences() {
+    public Map<String, List<String>> getCompetences() {
         return competences;
     }
 
-    public void setSuggestedCompetences(Map<CompetenceModel, List<PersonModel>> suggestedCompetences) {
+    public void setSuggestedCompetences(Map<String, List<String>> suggestedCompetences) {
         this.suggestedCompetences = suggestedCompetences;
     }
     
-    public Map<CompetenceModel, List<PersonModel>> getSuggestedCompetences() {
+    public Map<String, List<String>> getSuggestedCompetences() {
         return suggestedCompetences;
     }
 }
