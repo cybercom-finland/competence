@@ -31,9 +31,8 @@
       <script>
         makeWordCloud();
       </script>
-      <button onClick="test()" type="button">test</button>
+      lisää käyttäjä: <input type="text" id="name"> id: <input type="text" id="id"> <button onClick="addUser()" type="button">Add User</button><br>
       <button onClick="getAllUsers()" type="button">Get All Users</button>
-      <button onClick="addCompetence()" type="button">Add Competence</button>
     </body>
   #end
 </html>

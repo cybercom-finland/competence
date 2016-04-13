@@ -41,10 +41,12 @@
         
         function addCompetence(){
         	var input = document.getElementById("competenceField").value;
+        	var host = window.location.hostname;
+        	var http = location.protocol;
         	alert(input);
         	$.ajax({
     	        type: "POST",
-    	        url: "http://risto-virtualbox:1990/confluence/rest/competence/1.0/addCompetence/1",
+    	        url: http + host +":1990/confluence/rest/competence/1.0/addCompetence/1",
     	        data: input,
     	        contentType: "application/json",
     	        success: function(data){console.log(data);},
@@ -54,11 +56,15 @@
     	  });
         }
         
-        function test(){
-        	var users = {"id" : "1", "nimi" : "risto"};
+        function addUser(){
+        	var name = document.getElementById("name").value;
+        	var id = document.getElementById("id").value;
+        	var users = {"id" : id, "nimi" : name};
+        	var host = window.location.hostname;
+        	var http = location.protocol;
         	 $.ajax({
         	        type: "POST",
-        	        url: "http://risto-virtualbox:1990/confluence/rest/competence/1.0/people/risto/1",
+        	        url: http + host +":1990/confluence/rest/competence/1.0/people/" + name + "/" + id,
         	        data: JSON.stringify(users),
         	        contentType: "application/json",
         	        success: function(data){console.log(data);},
@@ -70,9 +76,11 @@
         
         function getAllUsers(){
         	var users = {"values" : []};
+        	var host = window.location.hostname;
+        	var http = location.protocol;
         	 $.ajax({
         	        type: "GET",
-        	        url: "http://risto-virtualbox:1990/confluence/rest/competence/1.0/people/",
+        	        url: http + host + ":1990/confluence/rest/competence/1.0/people/",
         	        data: users,
         	        dataType: "json",
         	        success: function(data){console.log(data);},
