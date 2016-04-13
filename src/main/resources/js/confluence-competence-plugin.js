@@ -1,5 +1,10 @@
 
-        function refreshAutocomplete() {
+var hostAddress = window.location.href;
+var split = hostAddress.split("/");
+var http = split[0];
+var address = split[2];
+
+function refreshAutocomplete() {
           var dataList = jQuery("#competenceAutocomplete");
           var input = jQuery("#competenceField");
           jQuery.get("$req.contextPath/rest/competence/1.0/autocomplete.json",
@@ -41,53 +46,55 @@
         
         function addCompetence(){
         	var input = document.getElementById("competenceField").value;
-        	var host = window.location.hostname;
-        	var http = location.protocol;
         	alert(input);
-        	$.ajax({
-    	        type: "POST",
-    	        url: http + host +":1990/confluence/rest/competence/1.0/addCompetence/1",
-    	        data: input,
-    	        contentType: "application/json",
-    	        success: function(data){console.log(data);},
-    	        failure: function(errMsg) {
-    	            alert(errMsg);
-    	        }
-    	  });
+        	ajaxRequest("POST",
+        			http + "//" + address + "/confluence/rest/competence/1.0/addCompetence/1",
+        			input,
+        			"",
+        			"application/json"
+        			);
+        	
         }
         
         function addUser(){
         	var name = document.getElementById("name").value;
         	var id = document.getElementById("id").value;
-        	var users = {"id" : id, "nimi" : name};
-        	var host = window.location.hostname;
-        	var http = location.protocol;
-        	 $.ajax({
-        	        type: "POST",
-        	        url: http + host +":1990/confluence/rest/competence/1.0/people/" + name + "/" + id,
-        	        data: JSON.stringify(users),
-        	        contentType: "application/json",
-        	        success: function(data){console.log(data);},
-        	        failure: function(errMsg) {
-        	            alert(errMsg);
-        	        }
-        	  });
+        	var user = { name: "", id: ""};
+        	user.name = name;
+        	user.id = id;
+        	ajaxRequest("POST",
+        			http + "//" + address + "/confluence/rest/competence/1.0/people/" + name + "/" + id,
+        			JSON.stringify(user),
+        			"",
+        			"application/json"
+        			);
         }
         
         function getAllUsers(){
         	var users = {"values" : []};
-        	var host = window.location.hostname;
-        	var http = location.protocol;
-        	 $.ajax({
-        	        type: "GET",
-        	        url: http + host + ":1990/confluence/rest/competence/1.0/people/",
-        	        data: users,
-        	        dataType: "json",
-        	        success: function(data){console.log(data);},
-        	        failure: function(errMsg) {
-        	            alert(errMsg);
-        	        }
-        	  });
+        	ajaxRequest("GET",
+        			http + "//" + address + "/confluence/rest/competence/1.0/people/",
+        			users,
+        			"json",
+        			""
+        			);
         }
         
-        
+        function ajaxRequest(method, requestUrl, requestData, requestDataType, requestContentType){
+        	$.ajax({
+    	        type: method,
+    	        url: requestUrl,
+    	        data: requestData,
+    	        dataType: requestDataType,
+    	        contentType: requestContentType,
+    	        success: function(data){
+    	        	console.log(data);
+    	        	if(data != null){
+    	        		return data;
+    	        	}
+    	        },
+    	        failure: function(errMsg) {
+    	            alert(errMsg);
+    	        }
+    	  });
+        }
