@@ -119,12 +119,23 @@ public class CompetenceRestResource {
         return Response.ok(new CompetenceListModel(competenceService.getAllPeople())).build();
     }
 
-    @PUT
+    @POST
     @AnonymousAllowed
+    @Consumes("application/json")
     @Path("people/{name}/{id}")
     public Response addPerson(@PathParam("name") String name, @PathParam("id") String id) throws JSONException
     {
         competenceService.putPerson(name, new PersonModel(id));
+        return Response.ok().build();
+    }
+    
+    @POST
+    @AnonymousAllowed
+    @Consumes("application/json")
+    @Path("addCompetence/{id}")
+    public Response addCompetence(@PathParam("id") String id) throws JSONException
+    {
+        competenceService.addCompetenceToPerson(id);
         return Response.ok().build();
     }
     

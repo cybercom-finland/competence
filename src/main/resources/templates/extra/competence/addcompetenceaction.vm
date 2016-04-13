@@ -33,6 +33,7 @@
       </script>
       <button onClick="test()" type="button">test</button>
       <button onClick="getAllUsers()" type="button">Get All Users</button>
+      <button onClick="addCompetence()" type="button">Add Competence</button>
     </body>
   #end
 </html>

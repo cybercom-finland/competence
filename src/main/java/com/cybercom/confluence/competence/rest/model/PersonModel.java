@@ -59,4 +59,8 @@ public class PersonModel {
     public Map<String, List<String>> getSuggestedCompetences() {
         return suggestedCompetences;
     }
+    
+    public void addCompetence(String competence, List<String> endorcers ) {
+        this.competences.put(competence, endorcers);
+    }
 }

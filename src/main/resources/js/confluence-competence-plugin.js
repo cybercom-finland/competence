@@ -42,17 +42,26 @@
         function addCompetence(){
         	var input = document.getElementById("competenceField").value;
         	alert(input);
+        	$.ajax({
+    	        type: "POST",
+    	        url: "http://risto-virtualbox:1990/confluence/rest/competence/1.0/addCompetence/1",
+    	        data: input,
+    	        contentType: "application/json",
+    	        success: function(data){console.log(data);},
+    	        failure: function(errMsg) {
+    	            alert(errMsg);
+    	        }
+    	  });
         }
         
         function test(){
         	var users = {"id" : "1", "nimi" : "risto"};
         	 $.ajax({
         	        type: "POST",
-        	        url: "http://risto-virtualbox:1990/confluence/rest/competence/1.0/people/1",
+        	        url: "http://risto-virtualbox:1990/confluence/rest/competence/1.0/people/risto/1",
         	        data: JSON.stringify(users),
         	        contentType: "application/json",
-        	        dataType: "json",
-        	        success: function(data){alert(data);},
+        	        success: function(data){console.log(data);},
         	        failure: function(errMsg) {
         	            alert(errMsg);
         	        }
@@ -72,4 +81,5 @@
         	        }
         	  });
         }
+        
         

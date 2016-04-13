@@ -26,4 +26,6 @@ public interface CompetenceService
     TeamModel getTeam(String teamId);
 
     void deleteTeam(String teamId);
+
+	void addCompetenceToPerson(String id);
 }

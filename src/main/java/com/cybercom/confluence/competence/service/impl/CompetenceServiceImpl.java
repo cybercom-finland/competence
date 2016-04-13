@@ -70,4 +70,12 @@ public class CompetenceServiceImpl implements CompetenceService
         TeamsContext teamsContext = new TeamsContext();
         bandanaManager.removeValue(teamsContext, teamId);
     }
+
+
+	@Override
+	public void addCompetenceToPerson(String id) {
+		PeopleContext peopleContext = new PeopleContext();
+		bandanaManager.getValue(peopleContext, id);
+		
+	}
 }
