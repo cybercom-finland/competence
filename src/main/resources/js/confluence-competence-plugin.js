@@ -32,6 +32,8 @@ function refreshAutocomplete() {
               },
               click: function(item, dimension, event) {
                 console.log('Item clicked: ' + item);
+                AJS.dialog2("#demo-dialog").show();
+                
               },
               weightFactor: function(size) {
                 return Math.log(size + 1) * 30;
@@ -97,3 +99,5 @@ function refreshAutocomplete() {
     	        }
     	  });
         }
+        
+        

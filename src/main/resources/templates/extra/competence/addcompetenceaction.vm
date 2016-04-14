@@ -6,6 +6,16 @@
     <script type="text/javascript" src="$req.contextPath/download/resources/com.cybercom.confluence.competence.confluence-competence-plugin:confluence-competence-plugin-resources/confluence-competence-plugin.js"></script>
     <script type="text/javascript" src="$req.contextPath/download/resources/com.cybercom.confluence.competence.confluence-competence-plugin:confluence-competence-plugin-resources/wordcloud2.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    
+    <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/5.9.17/css/aui.min.css" media="all">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="//aui-cdn.atlassian.com/aui-adg/5.9.17/js/aui.min.js"></script>
+    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.17/js/aui-datepicker.min.js"></script>
+    <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/5.9.17/css/aui-experimental.min.css" media="all">
+	<script src="//aui-cdn.atlassian.com/aui-adg/5.9.17/js/aui-experimental.min.js"></script>
+    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.17/js/aui-soy.min.js"></script>
+    
+    
   </head>
   #applyDecorator("root")
     #decoratorParam("context" "profile")
@@ -34,6 +44,75 @@
       <br/>
       lisää käyttäjä: <input type="text" id="name"> id: <input type="text" id="id"> <button onClick="addUser()" type="button">Add User</button><br/>
       <button onClick="getAllUsers()" type="button">Get All Users</button>
+    
+    <!-- Create a trigger which will be used by the JavaScript -->
+<button id="dialog-show-button" class="aui-button">Show dialog</button>
+
+<!-- Render the dialog -->
+<section role="dialog" id="demo-dialog" class="aui-layer aui-dialog2 aui-dialog2-medium" aria-hidden="true">
+    <!-- Dialog header -->
+    <header class="aui-dialog2-header">
+        <!-- The dialog's title -->
+        <h2 class="aui-dialog2-header-main">Always use sentence case</h2>
+        <!-- Actions to render on the right of the header -->
+        <div class="aui-dialog2-header-secondary">
+            <form class="aui" action="#">
+                <input id="demo-search" class="text" type="search" name="search">
+            </form>
+        </div>
+        <!-- Close icon -->
+        <a class="aui-dialog2-header-close">
+            <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+        </a>
+    </header>
+    <!-- Main dialog content -->
+    <div id="modalContent" class="aui-dialog2-content">
+        <p>Hello World</p>
+    </div>
+    <!-- Dialog footer -->
+    <footer class="aui-dialog2-footer">
+        <!-- Actions to render on the right of the footer -->
+        <div class="aui-dialog2-footer-actions">
+            <button id="dialog-submit-button" class="aui-button aui-button-primary">OK</button>
+            <button id="dialog-next-button" class="aui-button">Next</button>
+            <button id="dialog-close-button" class="aui-button aui-button-link">Close</button>
+        </div>
+        <!-- Hint text is rendered on the left of the footer -->
+        <div class="aui-dialog2-footer-hint">this is a hint</div>
+    </footer>
+</section>
+    <script>
+    // Shows the dialog when the "Show dialog" button is clicked
+        AJS.$("#dialog-show-button").click(function() {
+            AJS.dialog2("#demo-dialog").show();
+        });
+
+        // Hides the dialog
+        AJS.$("#dialog-close-button").click(function(e) {
+            e.preventDefault();
+            AJS.dialog2("#demo-dialog").hide();
+        });
+
+        // Show event - this is triggered when the dialog is shown
+        AJS.dialog2("#demo-dialog").on("show", function() {
+            console.log("demo-dialog was shown");
+        });
+
+        // Hide event - this is triggered when the dialog is hidden
+        AJS.dialog2("#demo-dialog").on("hide", function() {
+            console.log("demo-dialog was hidden");
+        });
+
+        // Global show event - this is triggered when any dialog is show
+        AJS.dialog2.on("show", function() {
+            console.log("a dialog was shown");
+        });
+
+        // Global hide event - this is triggered when any dialog is hidden
+        AJS.dialog2.on("hide", function() {
+            console.log("a dialog was hidden");
+        });
+        </script>
     </body>
   #end
 </html>
