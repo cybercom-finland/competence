@@ -33,6 +33,8 @@ function refreshAutocomplete() {
               click: function(item, dimension, event) {
                 console.log('Item clicked: ' + item);
                 AJS.dialog2("#demo-dialog").show();
+                var htmlString = "<div>" + item + "</div>"
+                $( "#modalContent" ).html(htmlString);
                 
               },
               weightFactor: function(size) {
