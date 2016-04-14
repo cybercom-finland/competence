@@ -46,28 +46,27 @@ function refreshAutocomplete() {
         
         function addCompetence(){
         	var input = document.getElementById("competenceField").value;
-        	alert(input);
+        	var inputData = { name: input };
         	ajaxRequest("POST",
         			http + "//" + address + "/confluence/rest/competence/1.0/addCompetence/1",
-        			input,
+        			JSON.stringify(inputData), //Sends CompetenceModel object
         			"",
         			"application/json"
-        			);
-        	
+        	);
         }
         
         function addUser(){
         	var name = document.getElementById("name").value;
         	var id = document.getElementById("id").value;
-        	var user = { name: "", id: ""};
-        	user.name = name;
+        	var user = { id: ""};
+        	//user.name = name;
         	user.id = id;
         	ajaxRequest("POST",
         			http + "//" + address + "/confluence/rest/competence/1.0/people/" + name + "/" + id,
-        			JSON.stringify(user),
+        			JSON.stringify(user), //Sends PersonModel object with only id
         			"",
         			"application/json"
-        			);
+        	);
         }
         
         function getAllUsers(){
@@ -77,7 +76,7 @@ function refreshAutocomplete() {
         			users,
         			"json",
         			""
-        			);
+        	);
         }
         
         function ajaxRequest(method, requestUrl, requestData, requestDataType, requestContentType){
