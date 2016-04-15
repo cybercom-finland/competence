@@ -3,6 +3,7 @@ var split = hostAddress.split("/");
 var http = split[0];
 var address = split[2];
 var currentUser;
+var ajaxResult;
 
 $(document).ready(function(){
 	
@@ -98,7 +99,7 @@ function refreshAutocomplete() {
     	        success: function(data){
     	        	console.log(data);
     	        	if(data != null){
-    	        		return data;
+    	        		ajaxResult = data;
     	        	}
     	        },
     	        failure: function(errMsg) {
@@ -145,17 +146,19 @@ function refreshAutocomplete() {
         
         function debug(){
         	var users = {"values" : []};
-        	var d = ajaxRequest("GET",
+        	ajaxRequest("GET",
         			http + "//" + address + "/confluence/rest/competence/1.0/debug/",
         			"",
         			"json",
         			""
         	);
-        	alert(JSON.stringify(d));
-        	//console.log(JSON.stringify(d));
-        	/*setTimeout(
+        	//alert(JSON.stringify(ajaxResult));
+        	
+        	setTimeout(
         			function(){
-        				alert(JSON.stringify(d));
-        			}, 2000);*/
+        				console.log(ajaxResult);
+        	        	console.log(JSON.stringify(ajaxResult));
+        				alert(JSON.stringify(ajaxResult));
+        			}, 2000);
         }
         
