@@ -1,8 +1,14 @@
-
 var hostAddress = window.location.href;
 var split = hostAddress.split("/");
 var http = split[0];
 var address = split[2];
+var currentUser;
+
+$(document).ready(function(){
+	
+	currentUser = getCurrentUser();
+	addUser();
+});
 
 function refreshAutocomplete() {
           var dataList = jQuery("#competenceAutocomplete");
@@ -32,9 +38,7 @@ function refreshAutocomplete() {
               },
               click: function(item, dimension, event) {
                 console.log('Item clicked: ' + item);
-                AJS.dialog2("#demo-dialog").show();
-                var htmlString = "<div>" + item + "</div>"
-                $( "#modalContent" ).html(htmlString);
+                craftModal(item , "person");
                 
               },
               weightFactor: function(size) {
@@ -51,8 +55,9 @@ function refreshAutocomplete() {
         function addCompetence(){
         	var input = document.getElementById("competenceField").value;
         	var inputData = { name: input };
+        	
         	ajaxRequest("POST",
-        			http + "//" + address + "/confluence/rest/competence/1.0/addCompetence/1",
+        			http + "//" + address + "/confluence/rest/competence/1.0/addCompetence/" + currentUser.id,
         			JSON.stringify(inputData), //Sends CompetenceModel object
         			"",
         			"application/json"
@@ -60,14 +65,14 @@ function refreshAutocomplete() {
         }
         
         function addUser(){
-        	var name = document.getElementById("name").value;
-        	var id = document.getElementById("id").value;
-        	var user = { id: ""};
+        	//var name = document.getElementById("name").value;
+        	//var id = document.getElementById("id").value;
+        	//var user = { id: ""};
         	//user.name = name;
-        	user.id = id;
+        	//user.id = id;
         	ajaxRequest("POST",
-        			http + "//" + address + "/confluence/rest/competence/1.0/people/" + name + "/" + id,
-        			JSON.stringify(user), //Sends PersonModel object with only id
+        			http + "//" + address + "/confluence/rest/competence/1.0/people/" + currentUser.name + "/" + currentUser.id,
+        			JSON.stringify(currentUser), //Sends PersonModel object with only id
         			"",
         			"application/json"
         	);
@@ -102,4 +107,39 @@ function refreshAutocomplete() {
     	  });
         }
         
+        function getCurrentUser() {
+			var user = { id : "", name : ""};
+			console.log(AJS.Data);
+			console.log(AJS.Data.get("remote-user-id"));
+		    $.ajax({
+		    	//url: "/confluence/rest/prototype/1/session",
+		    	//url: "/confluence/rest/gadget/1.0/currentUser",
+		    	//AJS.Data.getAllAsMap()
+		    	url: "/confluence/rest/prototype/1/user/current",
+			    type: 'GET',
+			    dataType: 'json',
+			    async: false,
+			    success: function(data) {
+			        user.name = data.name;
+			        user.id = AJS.Data.get("remote-user-key");
+		        	}
+		        });
+		        return user;
+        }
+        
+        function craftModal(item, type) {
+	        if(type == "person"){
+	        	var htmlString = item ;
+	            $( "#modalHeader" ).html(htmlString);
+	            
+	            htmlString = "<div>" + "Endosement score: " + "</div>";
+	            htmlString += "<div>" + "Endosers: " + "</div>";
+	            $( "#modalContent" ).html(htmlString);
+	            
+	            htmlString = "person's competence";
+	            $( "#modalFooter" ).html(htmlString);
+	            
+	            AJS.dialog2("#demo-dialog").show();
+        	}
+        }
         
