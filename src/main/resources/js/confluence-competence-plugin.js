@@ -98,7 +98,6 @@ function refreshAutocomplete() {
     	        success: function(data){
     	        	console.log(data);
     	        	if(data != null){
-    	        		alert(JSON.stringify(data))
     	        		return data;
     	        	}
     	        },
@@ -152,6 +151,7 @@ function refreshAutocomplete() {
         			"json",
         			""
         	);
+        	alert(JSON.stringify(d));
         	//console.log(JSON.stringify(d));
         	/*setTimeout(
         			function(){
