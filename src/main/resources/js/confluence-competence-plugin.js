@@ -98,6 +98,7 @@ function refreshAutocomplete() {
     	        success: function(data){
     	        	console.log(data);
     	        	if(data != null){
+    	        		alert(JSON.stringify(data))
     	        		return data;
     	        	}
     	        },
@@ -141,5 +142,20 @@ function refreshAutocomplete() {
 	            
 	            AJS.dialog2("#demo-dialog").show();
         	}
+        }
+        
+        function debug(){
+        	var users = {"values" : []};
+        	var d = ajaxRequest("GET",
+        			http + "//" + address + "/confluence/rest/competence/1.0/debug/",
+        			"",
+        			"json",
+        			""
+        	);
+        	//console.log(JSON.stringify(d));
+        	/*setTimeout(
+        			function(){
+        				alert(JSON.stringify(d));
+        			}, 2000);*/
         }
         
