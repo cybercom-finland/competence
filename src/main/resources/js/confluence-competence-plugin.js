@@ -4,12 +4,14 @@ var http = split[0];
 var address = split[2];
 var currentUser;
 var ajaxResult;
-
-$(document).ready(function(){
-	
-	currentUser = getCurrentUser();
-	addUser();
-});
+currentUser = getCurrentUser();
+addUser();
+ajaxRequest("GET",
+		http + "//" + address + "/confluence/rest/competence/1.0/person/competences/"+ currentUser.id,
+		"",
+		"json",
+		""
+);
 
 function refreshAutocomplete() {
           var dataList = jQuery("#competenceAutocomplete");
@@ -23,40 +25,42 @@ function refreshAutocomplete() {
               });
           });
         }
-        function makeWordCloud() {
-          if (window.WordCloud) {
-            var wordlist = ['JavaScript', 'TypeScript', 'Linux', 'HTML5', 'ikebana', 'smoke signals',
-              'Spring', 'Java', 'Confluence', 'Lisp'];
-            var list = wordlist.map(function(item) {
-              return [item, Math.floor(1 + Math.random() * 20)];
-            });
-            var configuration = {
-              fontFamily: 'Times, serif',
-              hover: function(item, dimension, event) {
-                if (item) {
-                  console.log('Item hovered: ' + item);
-                }
-              },
-              click: function(item, dimension, event) {
-                console.log('Item clicked: ' + item);
-                craftModal(item , "person");
-                
-              },
-              weightFactor: function(size) {
-                return Math.log(size + 1) * 30;
-              },
-              list: list
-            };
-            WordCloud(document.getElementById('tagCloud'), configuration );
-          } else {
-            setTimeout(makeWordCloud(), 500);
-          }
-        }
+
+function makeWordCloud() {
+	if (window.WordCloud) {
+		var wordlist = ajaxResult;
+		console.log(wordlist);
+		var list;
+		list = Object.keys(wordlist).map(function(value, index) {
+			var listItem = [value, Math.floor(1 + Math.random() * 20)];
+			return listItem;
+	    });
+		console.log(JSON.stringify(list));
+	    var configuration = {
+		    fontFamily: 'Times, serif',
+		    hover: function(item, dimension, event) {
+			    if (item) {
+			    	console.log('Item hovered: ' + item);
+			    }
+		    },
+		    click: function(item, dimension, event) {
+			    console.log('Item clicked: ' + item);
+			    craftModal(item , "person");
+		    },
+		    weightFactor: function(size) {
+		    	return Math.log(size + 1) * 30;
+		    },
+		    list: list
+	    };
+	    WordCloud(document.getElementById('tagCloud'), configuration );
+    } else {
+    	setTimeout(makeWordCloud(), 500);
+    }
+}
         
         function addCompetence(){
         	var input = document.getElementById("competenceField").value;
         	var inputData = { name: input };
-        	
         	ajaxRequest("POST",
         			http + "//" + address + "/confluence/rest/competence/1.0/addCompetence/" + currentUser.id,
         			JSON.stringify(inputData), //Sends CompetenceModel object
@@ -66,11 +70,6 @@ function refreshAutocomplete() {
         }
         
         function addUser(){
-        	//var name = document.getElementById("name").value;
-        	//var id = document.getElementById("id").value;
-        	//var user = { id: ""};
-        	//user.name = name;
-        	//user.id = id;
         	ajaxRequest("POST",
         			http + "//" + address + "/confluence/rest/competence/1.0/people/"+ currentUser.id,
         			JSON.stringify(currentUser), //Sends PersonModel object with only id
@@ -97,8 +96,8 @@ function refreshAutocomplete() {
     	        dataType: requestDataType,
     	        contentType: requestContentType,
     	        success: function(data){
-    	        	console.log(data);
-    	        	if(data != typeof null){
+    	        	if(data != null){
+    	        		console.log(data);
     	        		ajaxResult = data;
     	        	}
     	        },
@@ -110,12 +109,7 @@ function refreshAutocomplete() {
         
         function getCurrentUser() {
 			var user = { id : "", name : ""};
-			console.log(AJS.Data);
-			console.log(AJS.Data.get("remote-user-id"));
 		    $.ajax({
-		    	//url: "/confluence/rest/prototype/1/session",
-		    	//url: "/confluence/rest/gadget/1.0/currentUser",
-		    	//AJS.Data.getAllAsMap()
 		    	url: "/confluence/rest/prototype/1/user/current",
 			    type: 'GET',
 			    dataType: 'json',
@@ -151,9 +145,7 @@ function refreshAutocomplete() {
         			"",
         			"json",
         			""
-        	);
-        	//alert(JSON.stringify(ajaxResult));
-        	
+        	);        	
         	setTimeout(
         			function(){
         				console.log(ajaxResult);
