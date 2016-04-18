@@ -167,4 +167,11 @@ public class CompetenceRestResource {
         //pitäisi muuten toteuttaa funktio competenceService.getPersonsCompetences(id);
     	return Response.ok().build(); //palautetaan tässä vaikka lista personin competenceista
     }
+    
+    @GET
+    @AnonymousAllowed
+    @Path("/person/competences/{id}")
+    public Response getPersonCompetences(@PathParam("id") String id){
+    	return Response.ok(competenceService.getPerson(id).getCompetences()).build();
+    }
 }
