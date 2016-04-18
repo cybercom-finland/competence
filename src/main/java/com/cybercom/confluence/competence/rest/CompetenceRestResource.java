@@ -128,8 +128,9 @@ public class CompetenceRestResource {
     @Path("people/{id}")
     public Response addPerson(@PathParam("id") String id) throws JSONException
     {
-    	
-        competenceService.putPerson(id, new PersonModel(id));
+    	if(competenceService.getPerson(id) == null){
+    		competenceService.putPerson(id, new PersonModel(id));
+    	}
         return Response.ok().build();
     }
     
