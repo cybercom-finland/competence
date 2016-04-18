@@ -1,5 +1,6 @@
 package com.cybercom.confluence.competence.rest.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class PersonModel {
 
     public PersonModel(String id){
     	this.id = id;
+    	this.competences = new HashMap <String, List<String>>();
     }
     
     public PersonModel(String id, Map<String, List<String>> competences) {

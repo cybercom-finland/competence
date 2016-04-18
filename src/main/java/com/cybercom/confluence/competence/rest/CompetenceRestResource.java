@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.ws.rs.*;
@@ -126,6 +128,7 @@ public class CompetenceRestResource {
     @Path("people/{id}")
     public Response addPerson(@PathParam("id") String id) throws JSONException
     {
+    	
         competenceService.putPerson(id, new PersonModel(id));
         return Response.ok().build();
     }
@@ -137,7 +140,7 @@ public class CompetenceRestResource {
     public Response addCompetence(CompetenceModel cm, @PathParam("id") String id) throws JSONException
     {
     	ArrayList<String> endorser = new ArrayList<String>();
-    	endorser.add("Anon");
+    	endorser.add(id);
     	competenceService.getPerson(id).addCompetence(cm.getName(), endorser);
         return Response.ok(competenceService.getPerson(id).getCompetences()).build();
     }
