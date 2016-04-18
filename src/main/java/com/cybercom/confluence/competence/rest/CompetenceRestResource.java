@@ -123,10 +123,10 @@ public class CompetenceRestResource {
     @POST
     @AnonymousAllowed
     @Consumes("application/json")
-    @Path("people/{name}/{id}")
-    public Response addPerson(@PathParam("name") String name, @PathParam("id") String id) throws JSONException
+    @Path("people/{id}")
+    public Response addPerson(@PathParam("id") String id) throws JSONException
     {
-        competenceService.putPerson(name, new PersonModel(id));
+        competenceService.putPerson(id, new PersonModel(id));
         return Response.ok().build();
     }
     
@@ -138,10 +138,8 @@ public class CompetenceRestResource {
     {
     	ArrayList<String> endorser = new ArrayList<String>();
     	endorser.add("Anon");
-
     	competenceService.getPerson(id).addCompetence(cm.getName(), endorser);
-        competenceService.addCompetenceToPerson(id);
-        return Response.ok().build();
+        return Response.ok(competenceService.getPerson(id).getCompetences()).build();
     }
     
     @GET
@@ -155,7 +153,15 @@ public class CompetenceRestResource {
     @GET
     @AnonymousAllowed
     @Path("debug")
-    public Response getDebug(CompetenceModel cm){
-    	return Response.ok(cm).build();
+    public Response getDebug(){
+    	String id = "0";
+    	CompetenceModel cm = new CompetenceModel("Java Osaamista");
+    	ArrayList<String> endorser = new ArrayList<String>();
+    	endorser.add("Anon");
+
+    	competenceService.getPerson(id).addCompetence(cm.getName(), endorser);
+        competenceService.addCompetenceToPerson(id);
+        //pitäisi muuten toteuttaa funktio competenceService.getPersonsCompetences(id);
+    	return Response.ok().build(); //palautetaan tässä vaikka lista personin competenceista
     }
 }

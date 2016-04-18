@@ -72,7 +72,7 @@ function refreshAutocomplete() {
         	//user.name = name;
         	//user.id = id;
         	ajaxRequest("POST",
-        			http + "//" + address + "/confluence/rest/competence/1.0/people/" + currentUser.name + "/" + currentUser.id,
+        			http + "//" + address + "/confluence/rest/competence/1.0/people/"+ currentUser.id,
         			JSON.stringify(currentUser), //Sends PersonModel object with only id
         			"",
         			"application/json"
@@ -98,7 +98,7 @@ function refreshAutocomplete() {
     	        contentType: requestContentType,
     	        success: function(data){
     	        	console.log(data);
-    	        	if(data != null){
+    	        	if(data != typeof null){
     	        		ajaxResult = data;
     	        	}
     	        },
