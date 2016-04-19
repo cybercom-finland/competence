@@ -4,14 +4,8 @@ var http = split[0];
 var address = split[2];
 var currentUser;
 var ajaxResult;
-currentUser = getCurrentUser();
-addUser();
-ajaxRequest("GET",
-		http + "//" + address + "/confluence/rest/competence/1.0/person/competences/"+ currentUser.id,
-		"",
-		"json",
-		""
-);
+
+getCurrentUser();
 
 function refreshAutocomplete() {
           var dataList = jQuery("#competenceAutocomplete");
@@ -61,43 +55,51 @@ function makeWordCloud() {
         function addCompetence(){
         	var input = document.getElementById("competenceField").value;
         	var inputData = { name: input };
-        	ajaxRequest("POST",
-        			http + "//" + address + "/confluence/rest/competence/1.0/addCompetence/" + currentUser.id,
-        			JSON.stringify(inputData), //Sends CompetenceModel object
-        			"",
-        			"application/json"
-        	);
+        	$.ajax({
+    	        type: "POST",
+    	        url: http + "//" + address + "/confluence/rest/competence/1.0/addCompetence/" + currentUser.id,
+    	        data: JSON.stringify(inputData), //Sends CompetenceModel object
+    	        contentType: "application/json",
+    	        success: function(data){
+    	        	if(data != null){
+    	        		ajaxResult = data;
+    	        		makeWordCloud();
+    	        	}
+    	        },
+    	        failure: function(errMsg) {
+    	            alert(errMsg);
+    	        }
+    	  });
         }
         
         function addUser(){
-        	ajaxRequest("POST",
-        			http + "//" + address + "/confluence/rest/competence/1.0/people/"+ currentUser.id,
-        			JSON.stringify(currentUser), //Sends PersonModel object with only id
-        			"",
-        			"application/json"
-        	);
+        	$.ajax({
+    	        type: "POST",
+    	        url: http + "//" + address + "/confluence/rest/competence/1.0/people/"+ currentUser.id,
+    	        data: JSON.stringify(currentUser), //Sends PersonModel object with only id
+    	        contentType:"application/json; charset=utf-8",
+    	        dataType:"json",
+    	        success: function(data){
+    	        	if(data != null){
+    	        		ajaxResult = data;
+    	        	}
+    	        	getCompetences();
+    	        },
+    	        failure: function(errMsg) {
+    	            alert(errMsg);
+    	        }
+    	  });
         }
         
         function getAllUsers(){
         	var users = {"values" : []};
-        	ajaxRequest("GET",
-        			http + "//" + address + "/confluence/rest/competence/1.0/people/",
-        			users,
-        			"json",
-        			""
-        	);
-        }
-        
-        function ajaxRequest(method, requestUrl, requestData, requestDataType, requestContentType){
         	$.ajax({
-    	        type: method,
-    	        url: requestUrl,
-    	        data: requestData,
-    	        dataType: requestDataType,
-    	        contentType: requestContentType,
+    	        type: "GET",
+    	        url: http + "//" + address + "/confluence/rest/competence/1.0/people/",
+    	        data: users,
+    	        dataType: "json",
     	        success: function(data){
     	        	if(data != null){
-    	        		console.log(data);
     	        		ajaxResult = data;
     	        	}
     	        },
@@ -106,6 +108,8 @@ function makeWordCloud() {
     	        }
     	  });
         }
+        
+       
         
         function getCurrentUser() {
 			var user = { id : "", name : ""};
@@ -117,9 +121,28 @@ function makeWordCloud() {
 			    success: function(data) {
 			        user.name = data.name;
 			        user.id = AJS.Data.get("remote-user-key");
+			        currentUser = user;
+			        
+			        addUser();
+			        
 		        	}
 		        });
-		        return user;
+        }
+        
+        function getCompetences(){
+        	$.ajax({
+	            type: "GET",
+	            url: http + "//" + address + "/confluence/rest/competence/1.0/person/competences/"+ currentUser.id,
+	            dataType: "json",
+	            success: function(data){
+	            	if(data != null){
+	            		ajaxResult = data;
+	            	}
+	            },
+	            failure: function(errMsg) {
+	                alert(errMsg);
+	            }
+	        });
         }
         
         function craftModal(item, type) {

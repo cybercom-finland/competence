@@ -29,7 +29,7 @@
         It will show your personal tag cloud.
       </p>
       <div>
-        <form id="addCompetenceField">
+        <form id="addCompetenceField" onSubmit="addCompetence()">
           <input type="text" id="competenceField" list="competenceAutocomplete" placeholder="competence" oninput="refreshAutocomplete()"/>
           <datalist id="competenceAutocomplete"></datalist>
           <button onClick="addCompetence()" type="button">Add competence</button>
@@ -40,11 +40,11 @@
         makeWordCloud();
       </script>
       <br/>
-      lisää käyttäjä: <input type="text" id="name"> id: <input type="text" id="id"> <button onClick="addUser()" type="button">Add User</button><br/>
+      <!-- lisää käyttäjä: <input type="text" id="name"> id: <input type="text" id="id"> <button onClick="addUser()" type="button">Add User</button><br/>
       <button onClick="getAllUsers()" type="button">Get All Users</button>
     
-    <!-- Create a trigger which will be used by the JavaScript -->
-<button id="dialog-show-button" class="aui-button">Show dialog</button>
+     Create a trigger which will be used by the JavaScript
+<button id="dialog-show-button" class="aui-button">Show dialog</button>-->
 
 <!-- Render the dialog -->
 <section role="dialog" id="demo-dialog" class="aui-layer aui-dialog2 aui-dialog2-medium" aria-hidden="true">
