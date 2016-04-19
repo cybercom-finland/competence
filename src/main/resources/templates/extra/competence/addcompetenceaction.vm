@@ -7,13 +7,6 @@
     <script type="text/javascript" src="$req.contextPath/download/resources/com.cybercom.confluence.competence.confluence-competence-plugin:confluence-competence-plugin-resources/wordcloud2.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
     
-    <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/5.9.17/css/aui.min.css" media="all">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script src="//aui-cdn.atlassian.com/aui-adg/5.9.17/js/aui.min.js"></script>
-    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.17/js/aui-datepicker.min.js"></script>
-    <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/5.9.17/css/aui-experimental.min.css" media="all">
-	<script src="//aui-cdn.atlassian.com/aui-adg/5.9.17/js/aui-experimental.min.js"></script>
-    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.17/js/aui-soy.min.js"></script>
   </head>
   #applyDecorator("root")
     #decoratorParam("context" "profile")
@@ -29,7 +22,7 @@
         It will show your personal tag cloud.
       </p>
       <div>
-        <form id="addCompetenceField" onSubmit="addCompetence()">
+        <form id="addCompetenceField" onsubmit="return mySubmitFunction()">
           <input type="text" id="competenceField" list="competenceAutocomplete" placeholder="competence" oninput="refreshAutocomplete()"/>
           <datalist id="competenceAutocomplete"></datalist>
           <button onClick="addCompetence()" type="button">Add competence</button>
@@ -37,7 +30,10 @@
       </div>
       <canvas id="tagCloud" width="800" height="500" style="width: 800px; height: 500px;"></canvas>
       <script>
-        makeWordCloud();
+      	function mySubmitFunction(){
+	      	addCompetence();
+	      	return false;
+      	}
       </script>
       <br/>
       <!-- lisää käyttäjä: <input type="text" id="name"> id: <input type="text" id="id"> <button onClick="addUser()" type="button">Add User</button><br/>

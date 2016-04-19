@@ -4,8 +4,11 @@ var http = split[0];
 var address = split[2];
 var currentUser;
 var ajaxResult;
-
 getCurrentUser();
+
+$( document ).ready(function(){
+	makeWordCloud();
+});
 
 function refreshAutocomplete() {
           var dataList = jQuery("#competenceAutocomplete");
@@ -122,7 +125,8 @@ function makeWordCloud() {
 			        user.name = data.name;
 			        user.id = AJS.Data.get("remote-user-key");
 			        currentUser = user;
-			        
+			        console.log(currentUser);
+			        console.log(JSON.stringify(currentUser));
 			        addUser();
 			        
 		        	}
@@ -137,6 +141,7 @@ function makeWordCloud() {
 	            success: function(data){
 	            	if(data != null){
 	            		ajaxResult = data;
+	            		makeWordCloud();
 	            	}
 	            },
 	            failure: function(errMsg) {
