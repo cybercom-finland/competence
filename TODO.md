@@ -1,11 +1,12 @@
 TODO:
 
 * Polymer
-* A panel for managing competences for self and voting/suggesting new competences for others.
+* A macro/panel for managing competences for self and voting/suggesting new competences for others.
 * REST API competence and team information management.
 * Browsing competences, teams, people.
 * Drag-and-drop interface for creating and managing teams.
 * User profile viewing by other users.
+* Search for people/competences
 
 Done:
 
