@@ -116,6 +116,7 @@ function makeWordCloud() {
         
         function getCurrentUser() {
 			var user = { id : "", name : ""};
+			user.id = AJS.Data.get("remote-user-key");
 		    $.ajax({
 		    	url: "/confluence/rest/prototype/1/user/current",
 			    type: 'GET',
@@ -123,14 +124,15 @@ function makeWordCloud() {
 			    async: false,
 			    success: function(data) {
 			        user.name = data.name;
-			        user.id = AJS.Data.get("remote-user-key");
-			        currentUser = user;
+			        
 			        console.log(currentUser);
 			        console.log(JSON.stringify(currentUser));
-			        addUser();
+			        
 			        
 		        	}
 		        });
+		    currentUser = user;
+		    addUser();
         }
         
         function getCompetences(){
