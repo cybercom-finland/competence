@@ -99,15 +99,22 @@
             <version>2.6.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+	        <groupId>org.apache.commons</groupId>
+	        <artifactId>commons-pool2</artifactId>
+	        <version>2.4.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
-           <plugin>
+            <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-confluence-plugin</artifactId>
                 <version>${amps.version}</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <enableFastdev>false</enableFastdev>
+                    <allowGoogleTracking>false</allowGoogleTracking>
                     <pluginArtifacts>
                       <pluginArtifact>
                         <groupId>com.atlassian.activeobjects</groupId>
@@ -118,6 +125,11 @@
                         <groupId>com.atlassian.activeobjects</groupId>
                         <artifactId>activeobjects-confluence-spi</artifactId>
                         <version>${ao.version}</version>
+                      </pluginArtifact>
+                      <pluginArtifact>
+                        <groupId>com.atlassian.labs.plugins</groupId>
+                        <artifactId>quickreload</artifactId>
+                        <version>${quick.reload.version}</version>
                       </pluginArtifact>
                     </pluginArtifacts>
                     <productVersion>${confluence.version}</productVersion>
@@ -137,6 +149,7 @@
         </pluginManagement>
     </build>
     <properties>
+        <quick.reload.version>1.30.2</quick.reload.version>
         <confluence.version>5.9.4</confluence.version>
         <confluence.data.version>5.9.4</confluence.data.version>
         <amps.version>6.2.3</amps.version>
