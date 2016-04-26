@@ -61,10 +61,10 @@ public class CompetenceRestResource {
     public CompetenceRestResource(CompetenceService competenceService) {
         this.competenceService = competenceService;
         
-        // TODO: Put in a cloud Redis here.
-        redisHost = "localhost";
+        redisHost = "10.35.49.187";
+        String password = "FIXME_REAL_PASSWORD_HERE!";
         // 30s timeout for the flushAll.
-        pool = new JedisPool(new JedisPoolConfig(), redisHost, 6379, 30 * 1000);
+        pool = new JedisPool(new JedisPoolConfig(), redisHost, 6379, 30 * 1000, password);
         
         new Thread() {
             public void run() {
