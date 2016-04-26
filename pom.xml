@@ -113,6 +113,7 @@
                 <version>${amps.version}</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <jvmArgs>-Xms1g -Xmx2g -XX:MaxPermSize=1g -XX:-UseGCOverheadLimit -server</jvmArgs>
                     <enableFastdev>false</enableFastdev>
                     <allowGoogleTracking>false</allowGoogleTracking>
                     <pluginArtifacts>
