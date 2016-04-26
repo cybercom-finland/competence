@@ -77,6 +77,8 @@ public class CompetenceRestResource {
                 try {
                     // No need to flush the db in production.
                     // jedis.flushDB();
+                    // The first line is "page title". Skipping it.
+                    line = br.readLine();
                     while((line = br.readLine()) != null) {
                         // Turning underscores into spaces.
                         line = line.replace('_', ' ');
