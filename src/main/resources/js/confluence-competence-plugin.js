@@ -13,7 +13,7 @@ $( document ).ready(function(){
 function refreshAutocomplete() {
           var dataList = jQuery("#competenceAutocomplete");
           var input = jQuery("#competenceField");
-          jQuery.get("$req.contextPath/rest/competence/1.0/autocomplete.json",
+          jQuery.get("../../rest/competence/1.0/autocomplete.json",
             {prefix: input.val()}, function( data ) {
               console.log("Got data: " + JSON.stringify(data.value));
               dataList.empty();
