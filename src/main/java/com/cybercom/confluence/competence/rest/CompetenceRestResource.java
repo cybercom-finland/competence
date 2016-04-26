@@ -73,13 +73,19 @@ public class CompetenceRestResource {
                 InputStream stream = this.getClass().getResourceAsStream("/autocomplete/enwiki-latest-all-titles-in-ns0");
                 BufferedReader br = new BufferedReader(new InputStreamReader(stream));
                 String line = null;
+                int i = 0;
                 try {
-                    jedis.flushDB();
+                    // No need to flush the db in production.
+                    // jedis.flushDB();
                     while((line = br.readLine()) != null) {
                         // Turning underscores into spaces.
                         line = line.replace('_', ' ');
                         // Add to Redis here.
                         jedis.zadd(AUTOCOMPLETE, 0, line);
+                        if (i % 1000 == 0) {
+                            System.out.println("Added word: " + line + ", iter: " + i);
+                        }
+                        i++;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
