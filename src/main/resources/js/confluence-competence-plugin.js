@@ -1,7 +1,3 @@
-var hostAddress = window.location.href;
-var split = hostAddress.split("/");
-var http = split[0];
-var address = split[2];
 var currentUser;
 var ajaxResult;
 getCurrentUser();
@@ -60,7 +56,7 @@ function makeWordCloud() {
         	var inputData = { name: input };
         	$.ajax({
     	        type: "POST",
-    	        url: http + "//" + address + "/confluence/rest/competence/1.0/addCompetence/" + currentUser.id,
+    	        url: "../../rest/competence/1.0/addCompetence/" + currentUser.id,
     	        data: JSON.stringify(inputData), //Sends CompetenceModel object
     	        contentType: "application/json",
     	        success: function(data){
@@ -78,7 +74,7 @@ function makeWordCloud() {
         function addUser(){
         	$.ajax({
     	        type: "POST",
-    	        url: http + "//" + address + "/confluence/rest/competence/1.0/people/"+ currentUser.id,
+    	        url: "../../rest/competence/1.0/people/"+ currentUser.id,
     	        data: JSON.stringify(currentUser), //Sends PersonModel object with only id
     	        contentType:"application/json; charset=utf-8",
     	        dataType:"json",
@@ -98,7 +94,7 @@ function makeWordCloud() {
         	var users = {"values" : []};
         	$.ajax({
     	        type: "GET",
-    	        url: http + "//" + address + "/confluence/rest/competence/1.0/people/",
+    	        url: "../../rest/competence/1.0/people/",
     	        data: users,
     	        dataType: "json",
     	        success: function(data){
@@ -118,7 +114,7 @@ function makeWordCloud() {
 			var user = { id : "", name : ""};
 			user.id = AJS.Data.get("remote-user-key");
 		    $.ajax({
-		    	url: "/confluence/rest/prototype/1/user/current",
+		    	url: "../../rest/prototype/1/user/current",
 			    type: 'GET',
 			    dataType: 'json',
 			    async: false,
@@ -138,7 +134,7 @@ function makeWordCloud() {
         function getCompetences(){
         	$.ajax({
 	            type: "GET",
-	            url: http + "//" + address + "/confluence/rest/competence/1.0/person/competences/"+ currentUser.id,
+	            url: "../../rest/competence/1.0/person/competences/"+ currentUser.id,
 	            dataType: "json",
 	            success: function(data){
 	            	if(data != null){
@@ -171,7 +167,7 @@ function makeWordCloud() {
         function debug(){
         	var users = {"values" : []};
         	ajaxRequest("GET",
-        			http + "//" + address + "/confluence/rest/competence/1.0/debug/",
+        	        "../../rest/competence/1.0/debug/",
         			"",
         			"json",
         			""
