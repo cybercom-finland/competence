@@ -25,7 +25,7 @@
         <form id="addCompetenceField" onsubmit="return mySubmitFunction()">
           <input type="text" id="competenceField" list="competenceAutocomplete" placeholder="competence" oninput="refreshAutocomplete()"/>
           <datalist id="competenceAutocomplete"></datalist>
-          <button onClick="addCompetence()" type="button">Add competence</button>
+          <button type="submit">Add competence</button>
         </form>
       </div>
       <canvas id="tagCloud" width="800" height="500" style="width: 800px; height: 500px;"></canvas>

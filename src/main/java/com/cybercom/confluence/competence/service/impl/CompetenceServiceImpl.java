@@ -4,7 +4,6 @@ import com.atlassian.bandana.BandanaManager;
 import com.cybercom.confluence.competence.rest.model.PersonModel;
 import com.cybercom.confluence.competence.rest.model.TeamModel;
 import com.cybercom.confluence.competence.service.CompetenceService;
-
 import java.util.List;
 import com.google.common.collect.Lists;
 

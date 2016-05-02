@@ -1,32 +1,34 @@
 package com.cybercom.confluence.competence.rest;
 
-import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
-import com.cybercom.confluence.competence.rest.model.PeopleModel;
-import com.cybercom.confluence.competence.rest.model.PersonModel;
-import com.cybercom.confluence.competence.rest.model.CompetenceListModel;
-import com.cybercom.confluence.competence.rest.model.CompetenceModel;
-import com.cybercom.confluence.competence.service.CompetenceService;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
+import com.cybercom.confluence.competence.rest.model.CompetenceListModel;
+import com.cybercom.confluence.competence.rest.model.CompetenceModel;
+import com.cybercom.confluence.competence.rest.model.PersonModel;
+import com.cybercom.confluence.competence.service.CompetenceService;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * Returns all the competences and teams for the purposes of drawing the tag cloud.
@@ -62,7 +64,7 @@ public class CompetenceRestResource {
         this.competenceService = competenceService;
         
         redisHost = "10.35.49.187";
-        String password = "FIXME_REAL_PASSWORD_HERE!";
+        String password = "FIXME_REAL_PASSWORD_HERE!"; //FIXME_REAL_PASSWORD_HERE!
         // 30s timeout for the flushAll.
         pool = new JedisPool(new JedisPoolConfig(), redisHost, 6379, 30 * 1000, password);
         
@@ -134,10 +136,11 @@ public class CompetenceRestResource {
     @AnonymousAllowed
     @Consumes("application/json")
     @Path("people/{id}")
-    public Response addPerson(@PathParam("id") String id) throws JSONException
+    public Response addPerson(@PathParam("id") String id, PersonModel pm) throws JSONException
     {
     	if(competenceService.getPerson(id) == null){
-    		competenceService.putPerson(id, new PersonModel(id));
+    		PersonModel p = new PersonModel(pm.getId(), pm.getName(), pm.getUserName());
+    		competenceService.putPerson(id, p);
     	}
         return Response.ok().build();
     }
@@ -181,6 +184,6 @@ public class CompetenceRestResource {
     @AnonymousAllowed
     @Path("/person/competences/{id}")
     public Response getPersonCompetences(@PathParam("id") String id){
-    	return Response.ok(competenceService.getPerson(id).getCompetences()).build();
+    	return Response.ok(competenceService.getPerson(id).getCompetences()).build(); //TODO: palauta listaus henkilöistä
     }
 }

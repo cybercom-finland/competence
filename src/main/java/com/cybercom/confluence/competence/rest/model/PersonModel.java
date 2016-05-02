@@ -11,6 +11,10 @@ import javax.xml.bind.annotation.*;
 public class PersonModel {
     @XmlElement(name = "id")
     private String id;
+    @XmlElement(name = "name")
+    private String name;
+    @XmlElement(name = "userName")
+    private String userName;
 
     /**
      * Map from the competence name to the list of Confluence ids who have endorsed this.
@@ -28,13 +32,17 @@ public class PersonModel {
     public PersonModel() {
     }
 
-    public PersonModel(String id){
+    public PersonModel(String id, String name, String userName){
     	this.id = id;
+    	this.name = name;
+    	this.userName = userName;
     	this.competences = new HashMap <String, List<String>>();
     }
     
-    public PersonModel(String id, Map<String, List<String>> competences) {
+    public PersonModel(String id, String name, String userName, Map<String, List<String>> competences) {
         this.id = id;
+        this.name = name;
+        this.userName= userName;
         this.competences = competences;
     }
     
@@ -44,6 +52,22 @@ public class PersonModel {
     
     public String getId() {
         return id;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    
+    public String getUserName() {
+        return userName;
     }
     
     public void setCompetences(Map<String, List<String>> competences) {
