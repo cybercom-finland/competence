@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -64,11 +68,11 @@ public class CompetenceRestResource {
         this.competenceService = competenceService;
         
         redisHost = "10.35.49.187";
-        String password = "FIXME_REAL_PASSWORD_HERE!"; //FIXME_REAL_PASSWORD_HERE!
+        String password = "c#0_mPEtencerEdis"; //FIXME_REAL_PASSWORD_HERE!
         // 30s timeout for the flushAll.
         pool = new JedisPool(new JedisPoolConfig(), redisHost, 6379, 30 * 1000, password);
         
-        new Thread() {
+        /*new Thread() {
             public void run() {
                 System.out.println("READING ALL ARTICLE TITLES IN FROM WIKIPEDIA...");
                 Jedis jedis = pool.getResource();
@@ -97,7 +101,7 @@ public class CompetenceRestResource {
                 jedis.close();
                 System.out.println("READ ALL ARTICLE TITLES IN FROM WIKIPEDIA INTO TRIE FOR AUTOCOMPLETION!");
             }
-        }.start();
+        }.start();*/
     }
     
     @GET
@@ -143,6 +147,16 @@ public class CompetenceRestResource {
     		competenceService.putPerson(id, p);
     	}
         return Response.ok().build();
+    }
+    
+    @POST
+    @AnonymousAllowed
+    @Consumes("application/json")
+    @Path("endorse/{targetId}/{endorserId}")
+    public Response endorsePersonCompetence(@PathParam("targetId") String targetId, @PathParam("endorserId") String endorserId, CompetenceModel cm) throws JSONException
+    {
+    	competenceService.getPerson(targetId).getCompetences().get(cm.name).add(endorserId);
+        return Response.ok(competenceService.getPerson(targetId).getCompetences()).build();
     }
     
     @POST

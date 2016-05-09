@@ -29,7 +29,14 @@ function makeWordCloud() {
 		console.log(wordlist);
 		var list;
 		list = Object.keys(wordlist).map(function(value, index) {
-			var listItem = [ value, Math.floor(1 + Math.random() * 20) ];
+			//console.log(myMap.get(value));
+			var listSize = [];
+			for ( var key in competences) {
+				if (key == value) {
+					listSize = competences[key].length;
+				}
+			}
+			var listItem = [ value, listSize ];
 			return listItem;
 		});
 		console.log(JSON.stringify(list));
@@ -43,7 +50,7 @@ function makeWordCloud() {
 			},
 			click : function(item, dimension, event) {
 				console.log('Item clicked: ' + item);
-				craftModal(item, "person");
+				craftModal(item[0], "person");
 			},
 			weightFactor : function(size) {
 				return Math.log(size + 1) * 30;
@@ -70,12 +77,44 @@ function addCompetence() {
 			if (data != null) {
 				competences = data;
 				makeWordCloud();
+				
 			}
 		},
 		failure : function(errMsg) {
 			alert(errMsg);
 		}
 	});
+}
+
+function endorseUser() {
+	
+	var competenceName = "";
+	competenceName = document.getElementById("modalHeader").innerHTML;
+	var inputData = {
+		name : competenceName
+	};
+	$.ajax({
+		type : "POST",
+		url : "../../rest/competence/1.0/endorse/" + currentUser.id + "/" + currentUser.id,		//TODO: endorsoitava käyttäjä ei suinkaan ole
+		data : JSON.stringify(inputData), // Sends CompetenceModel object  	//currentUser vaan se henkilö jonka sivuilla ollaan
+		contentType : "application/json",
+		success : function(data) {
+			if (data != null) {
+				console.log(data);
+				
+			}
+		},
+		failure : function(errMsg) {
+			alert(errMsg);
+		}
+	});
+}
+function endorseButtonAction(){
+	var p = new Promise(function(resolve, reject) {
+		endorseUser();
+		resolve(1);
+	});
+	p.then(getCompetences());
 }
 
 function addUser() {
@@ -142,6 +181,10 @@ function getCurrentUser() {
 }
 
 function getCompetences() {
+	var competenceName = "";
+	if(document.getElementById("modalHeader").innerHTML != null){
+		competenceName = document.getElementById("modalHeader").innerHTML;
+	}
 	$.ajax({
 		type : "GET",
 		url : "../../rest/competence/1.0/person/competences/" + currentUser.id,
@@ -149,6 +192,9 @@ function getCompetences() {
 		success : function(data) {
 			if (data != null) {
 				competences = data;
+				if(competenceName != null){
+					craftModal(competenceName, "person");
+				}
 				makeWordCloud();
 			}
 		},
@@ -158,13 +204,13 @@ function getCompetences() {
 	});
 }
 
-function craftModal(item, type) {
+function craftModal(itemName, type) {
 	if (type == "person") {
-		var htmlString = item[0];
+		var htmlString = itemName;
 		$("#modalHeader").html(htmlString);
 		var list = [];
 		for ( var key in competences) {
-			if (key == item[0]) {
+			if (key == itemName) {
 				list = competences[key];
 			}
 		}
@@ -195,9 +241,10 @@ function craftModal(item, type) {
 								ajaxCall();
 							}else{
 							htmlString += "</div>";
-							$("#modalContent").html(htmlString)
-							var hs = "person's competence";
-							$("#modalFooter").html(hs);
+							$("#modalContent").html(htmlString);
+							htmlString = "<button type=button onClick='endorseUser(); getCompetences()'>Endorse</button>"; 
+							htmlString += "person's competence";
+							$("#modalFooter").html(htmlString);
 
 							AJS.dialog2("#demo-dialog").show();
 						}
